@@ -1,11 +1,17 @@
 from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import Screen, ScreenManager, NoTransition
+from kivy.uix.screenmanager import ScreenManager, NoTransition
 from kivy.lang import Builder
 from kivy.core.window import Window
 import os
-from water_test_input import WaterTestInputForm
-from educational_resources_list import EducationalResourcesList
+
+# Importing our own code from the other files
+from water_quality_feature import *     # "*" imports everything from that file
+from educational_resources_feature import *
+from communication_feature import *
+from settings_feature import *
+from home_feature import *
+from screen_navigation import *
+
 
 # Setting default window size to (width, height) in pixels. This is a 9 x 16 aspect ratio.
 Window.size = (350, 622)
@@ -18,38 +24,16 @@ class WindowManager(ScreenManager):
         super(WindowManager, self).__init__(**kwargs)
         self.transition = NoTransition()
 
-# These classes represent each of the different screens of the app. They each sub-class Screen.
-# They don't have any attributes or methods of their own yet other than the ones inherited from 
-# the kivy Screen class. They still need to be defined to handle the GUI design for each in their
-# respective kivy design files.
-class HomeScreen(Screen):
-    pass
-
-class WaterQualityScreen(Screen):
-    pass
-
-class CommunicationScreen(Screen):
-    pass
-
-class ResourcesScreen(Screen):
-    pass
-
-# This class represents a navigation bar at the bottom of the screen used to switch between screens.
-# It sub-classes the basic kivy Widget. The buttons for it are defined in the main_design kivy file.
-# Each screen will have this component at the bottom.
-class ScreenNavigationBar(Widget):
-    pass
-
 # These lines use the kivy Builder variable to load any kivy design files we created that are needed
 # for the app. The 'os.curdir' uses the standard Python package os (operating system) to get the
 # current directory. This directory path is inserted at the beginning of the file paths to each kivy
 # file so they can be found on any computer while we develop this.
 # Note: the order matters, the main file should be loaded last like it is done here.
-Builder.load_file(f"{os.curdir}/kivy_design_files/homescreen.kv")
-Builder.load_file(f"{os.curdir}/kivy_design_files/waterqualityscreen.kv")
-Builder.load_file(f"{os.curdir}/kivy_design_files/communicationscreen.kv")
-Builder.load_file(f"{os.curdir}/kivy_design_files/resourcesscreen.kv")
-main_kv_design_file = Builder.load_file(f"{os.curdir}/kivy_design_files/main_design.kv")
+kivy_design_file_dir = f"{os.curdir}/kivy_design_files/"
+for file in os.listdir(kivy_design_file_dir):
+    Builder.load_file(os.path.join(kivy_design_file_dir, file))
+    
+main_kv_design_file = Builder.load_file(os.path.join(kivy_design_file_dir, "main_design.kv"))
 
 # This is the main class that sub-classes the kivy App class.  We override the default build method of the App
 # class to do what we need when starting the app, which for now is just returning the file path

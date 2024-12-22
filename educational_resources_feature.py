@@ -1,6 +1,11 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 import webbrowser
+
+
+class ResourcesScreen(Screen):
+    pass
 
 
 class EducationalResourcesList(BoxLayout):

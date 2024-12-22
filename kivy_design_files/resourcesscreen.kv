@@ -3,26 +3,30 @@
 
     BoxLayout:
         orientation: "vertical"
-        size_hint: (1.00, 0.85)
-        
-        Label:
-            size_hint: (1.00, 0.10)
-            text: "resources screen"
-        
-        ScrollView:
-            do_scroll_x: False
-            do_scroll_y: True
-            size_hint: (1.00, 0.90)
-            size: (root.width, root.height)
+        size: root.width, root.height 
+    
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (1.00, 0.85)
+            
+            Label:
+                size_hint: (1.00, 0.10)
+                text: "Education / Resources Screen"
+            
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: (1.00, 0.90)
+                size: (root.width, root.height)
 
-            BoxLayout: 
-                orientation: "vertical"
-                size_hint_y: None 
-                height: self.minimum_height
-
-                EducationalResourcesList:
+                BoxLayout: 
+                    orientation: "vertical"
                     size_hint_y: None 
                     height: self.minimum_height
+
+                    EducationalResourcesList:
+                        size_hint_y: None 
+                        height: self.minimum_height
         
         ScreenNavigationBar:
             size_hint: (1.00, 0.15)
@@ -33,37 +37,54 @@
     size_hint_y: None 
     height: self.minimum_height
 
-    
-
     GridLayout:
         size_hint_y: None
         height: self.minimum_height
         cols: 1
+        padding: 10
 
         BoxLayout:
             size_hint_y: None
             height: 120
+
             Label:
-                text: "Resource 1: [ref=link]NJ DOH Water Quality Overview[/ref]"
+                text: "Drinking Water Quality in NJ Overview:\n[ref=link][color=1c73ff][u]NJ DOH Water Quality Overview[/u][/color][/ref]"
                 markup: True
+                text_size: self.width, None
+                size_hint_y: None 
+                height: self.texture_size[1]
+                halign: "left"
+                valign: "middle"
                 on_ref_press:
                     root.open_resource_link(self.text)
         
         BoxLayout:
             size_hint_y: None
             height: 120
+
             Label:
-                text: "Resource 2: [ref=link]Some other site[/ref]"
+                text: "another resource:\n[ref=link][color=1c73ff][u]Some other site[/u][/color][/ref]"
                 markup: True
+                text_size: self.width, None
+                size_hint_y: None 
+                height: self.texture_size[1]
+                halign: "left"
+                valign: "middle"
                 on_ref_press:
                     root.open_resource_link(self.text)
         
         BoxLayout:
             size_hint_y: None
             height: 120
+
             Label:
-                text: "etc: [ref=link]Some other site[/ref]"
+                text: "etc:\n[ref=link][color=1c73ff][u]Some other site[/u][/color][/ref]"
                 markup: True
+                text_size: self.width, None
+                size_hint_y: None 
+                height: self.texture_size[1]
+                halign: "left"
+                valign: "middle"
                 on_ref_press:
                     root.open_resource_link(self.text)
         

@@ -3,34 +3,6 @@ WindowManager:
     WaterQualityScreen:
     CommunicationScreen:
     ResourcesScreen:
-
-
-<ScreenNavigationBar>:
-    GridLayout:
-        size: root.width, root.height
-        cols: 3
-
-        Button:
-            text: "Home"
-            font_size: 26
-            on_release: 
-                app.root.current = "home_screen"
-
-        Button:
-            text: "My Water"
-            font_size: 26
-            on_release: 
-                app.root.current = "waterquality_screen"
-        
-        Button:
-            text: "Resources"
-            font_size: 26
-            on_release: 
-                app.root.current = "resources_screen"
-        
-        Button:
-            text: "Feedback"
-            font_size: 26
-            on_release: 
-                app.root.current = "communication_screen"
+    SettingsScreen:
+    TapWaterFeedbackScreen:
 

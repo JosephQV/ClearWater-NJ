@@ -1,6 +1,11 @@
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 import pandas
+
+
+class WaterQualityScreen(Screen):
+    pass
 
 
 class WaterTestInputForm(BoxLayout):
