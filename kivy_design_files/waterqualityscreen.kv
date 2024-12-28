@@ -37,12 +37,6 @@
     size_hint_y: None 
     height: self.minimum_height
 
-    contaminant_1: kv_contaminant_1
-    contaminant_2: kv_contaminant_2
-    contaminant_3: kv_contaminant_3
-    contaminant_4: kv_contaminant_4
-    contaminant_5: kv_contaminant_5
-
     GridLayout:
         size_hint_y: None
         height: self.minimum_height
@@ -54,10 +48,10 @@
             padding: 10
 
             Label:
-                text: "Lead (mg/L)"
+                text: "Antimony"
             
             TextInput:
-                id: kv_contaminant_1
+                id: kv_contaminant_value_1
                 text: "0"
                 multiline: False
         
@@ -67,10 +61,10 @@
             padding: 10
 
             Label:
-                text: "Copper (mg/L)"
+                text: "Arsenic"
             
             TextInput:
-                id: kv_contaminant_2
+                id: kv_contaminant_value_2
                 text: "0"
                 multiline: False
         
@@ -80,10 +74,10 @@
             padding: 10
             
             Label:
-                text: "other (mg/L)"
+                text: "Asbestos"
             
             TextInput:
-                id: kv_contaminant_3
+                id: kv_contaminant_value_3
                 text: "0"
                 multiline: False
         
@@ -93,10 +87,10 @@
             padding: 10
 
             Label:
-                text: "other (mg/L)"
+                text: "Barium"
             
             TextInput:
-                id: kv_contaminant_4
+                id: kv_contaminant_value_4
                 text: "0"
                 multiline: False
     
@@ -106,16 +100,19 @@
             padding: 10
 
             Label:
-                text: "etc. (mg/L)"
+                text: "Beryllium"
             
             TextInput:
-                id: kv_contaminant_5
+                id: kv_contaminant_value_5
                 text: "0"
                 multiline: False
         
         Button:
             size_hint_y: None
             height: 120
+            id: submit_button
             text: "Submit"
             on_release: 
                 root.submit_button_action()
+        Label:
+            id: result_label
