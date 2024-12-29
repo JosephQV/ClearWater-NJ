@@ -37,6 +37,14 @@
     size_hint_y: None 
     height: self.minimum_height
 
+    kv_contaminant_value_1: contaminant1
+    kv_contaminant_value_2: contaminant2
+    kv_contaminant_value_3: contaminant3
+    kv_contaminant_value_4: contaminant4
+    kv_contaminant_value_5: contaminant5
+    result_label: result_lbl
+    submit_button: submit_btn
+
     GridLayout:
         size_hint_y: None
         height: self.minimum_height
@@ -51,7 +59,7 @@
                 text: "Antimony"
             
             TextInput:
-                id: kv_contaminant_value_1
+                id: contaminant1
                 text: "0"
                 multiline: False
         
@@ -64,7 +72,7 @@
                 text: "Arsenic"
             
             TextInput:
-                id: kv_contaminant_value_2
+                id: contaminant2
                 text: "0"
                 multiline: False
         
@@ -77,7 +85,7 @@
                 text: "Asbestos"
             
             TextInput:
-                id: kv_contaminant_value_3
+                id: contaminant3
                 text: "0"
                 multiline: False
         
@@ -90,7 +98,7 @@
                 text: "Barium"
             
             TextInput:
-                id: kv_contaminant_value_4
+                id: contaminant4
                 text: "0"
                 multiline: False
     
@@ -103,16 +111,16 @@
                 text: "Beryllium"
             
             TextInput:
-                id: kv_contaminant_value_5
+                id: contaminant5
                 text: "0"
                 multiline: False
         
         Button:
             size_hint_y: None
             height: 120
-            id: submit_button
+            id: submit_btn
             text: "Submit"
             on_release: 
                 root.submit_button_action()
         Label:
-            id: result_label
+            id: result_lbl
