@@ -43,48 +43,27 @@
         cols: 1
         padding: 10
 
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-
-            Label:
-                text: "Drinking Water Quality in NJ Overview:\n[ref=link][color=1c73ff][u]NJ DOH Water Quality Overview[/u][/color][/ref]"
-                markup: True
-                text_size: self.width, None
-                size_hint_y: None 
-                height: self.texture_size[1]
-                halign: "left"
-                valign: "middle"
-                on_ref_press:
-                    root.open_resource_link(self.text)
+        ResourceItem:
+            resource_display_name: "NJ DOH Water Quality Overview"
         
-        BoxLayout:
-            size_hint_y: None
-            height: 120
+        ResourceItem:
+            resource_display_name: "Example resource 2"
 
-            Label:
-                text: "another resource:\n[ref=link][color=1c73ff][u]Some other site[/u][/color][/ref]"
-                markup: True
-                text_size: self.width, None
-                size_hint_y: None 
-                height: self.texture_size[1]
-                halign: "left"
-                valign: "middle"
-                on_ref_press:
-                    root.open_resource_link(self.text)
-        
-        BoxLayout:
-            size_hint_y: None
-            height: 120
+        ResourceItem:
+            resource_display_name: "Example resource 3"
 
-            Label:
-                text: "etc:\n[ref=link][color=1c73ff][u]Some other site[/u][/color][/ref]"
-                markup: True
-                text_size: self.width, None
-                size_hint_y: None 
-                height: self.texture_size[1]
-                halign: "left"
-                valign: "middle"
-                on_ref_press:
-                    root.open_resource_link(self.text)
+<ResourceItem>:
+    size_hint_y: None
+    height: 120
+
+    Label:
+        text: f"another resource:\n[ref=link][color=1c73ff][u]{root.resource_display_name}[/u][/color][/ref]"
+        markup: True
+        text_size: self.width, None
+        size_hint_y: None 
+        height: self.texture_size[1]
+        halign: "left"
+        valign: "middle"
+        on_ref_press:
+            root.open_resource_link()
         
