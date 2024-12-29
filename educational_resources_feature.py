@@ -15,7 +15,8 @@ class EducationalResourcesList(BoxLayout):
         
     def get_link(self, display_name):
 
-        df = pd.read_excel("DataSheets.xlsx", index_col=0)
+        file = fr"{os.curdir}\resources\DataSheets.xlsx"
+        df = pd.read_excel(file)
         df.head()
         result = df[df["Display Name"].str.casefold() == display_name]
         if not result.empty:
@@ -24,7 +25,7 @@ class EducationalResourcesList(BoxLayout):
             return "Display name not found in the resource list"
 
     def open_resource_link(self, link): 
-        link = self.get_link(display_name)
+        link = self.get_link(link)
         print(link)
         # temporary, as an example
         webbrowser.open("https://www-doh.nj.gov/doh-shad/topic/Water.html")
