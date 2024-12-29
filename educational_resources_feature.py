@@ -28,6 +28,5 @@ class EducationalResourcesList(BoxLayout):
         link = self.get_link(link)
         print(link)
         # temporary, as an example
-        webbrowser.open("https://www-doh.nj.gov/doh-shad/topic/Water.html")
-        
+        webbrowser.open(link)        
         
