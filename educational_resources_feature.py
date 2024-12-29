@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 import webbrowser
 import pandas as pd
+import os
 
 
 class ResourcesScreen(Screen):
