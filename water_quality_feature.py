@@ -1,11 +1,18 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
-import pandas
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 
 
 class WaterQualityScreen(Screen):
     pass
+
+class WaterTestInputScreen(Screen):
+    pass
+
+class WaterContaminantSelectionScreen(Screen):
+    def refresh_screen(self, selection_form):
+        form_container_widget = selection_form.ids.selection_form_container
+        selection_form.clear_form(form_container_widget)
 
 
 class WaterTestInputForm(BoxLayout):
@@ -32,3 +39,29 @@ class WaterTestInputForm(BoxLayout):
         # ...               ...
         # etc.              etc.
 
+
+
+class WaterContaminantSelectionForm(BoxLayout):
+    def process_contaminant_selections(self, form_container_widget):
+        selected = dict()
+        child_widgets = form_container_widget.children
+        for child in child_widgets:
+            if type(child) is ContaminantSelectableItem:
+                selected.update({child.contaminant_text : child.is_selected})
+        print(selected)
+        return selected
+    
+    def clear_form(self, form_container_widget):
+        child_widgets = form_container_widget.children
+        for child in child_widgets:
+            if type(child) is ContaminantSelectableItem:
+                child.ids.check_box.active = False
+                child.is_selected = False
+
+
+class ContaminantSelectableItem(BoxLayout):
+    contaminant_text = StringProperty("Default Contaminant")
+    is_selected = BooleanProperty(False)
+    
+        
+        
