@@ -106,5 +106,14 @@ To integrate the changes into your local code, run:
 
 **git pull**
 
+^On master branch in your local repository.
+
 You will need to do git pull occaisonally when changes are made on the remote that need to be
 pulled in your code.
+
+You might have to run this command as well.
+On your branch that you are working on, run
+
+**git merge master**
+
+to update everything.
