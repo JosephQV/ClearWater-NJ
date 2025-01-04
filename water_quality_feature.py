@@ -5,16 +5,24 @@ from kivy.app import App
 import pandas as pd
 from kivy.lang import Builder
 
-file_path = r'C:\Users\sghal\Downloads\GSS_Inorganic_Chemicals_Data.xlsx'
+file_path= r"C:\Users\sghal\New folder\TestGSS\GSS Inorganic Chemicals Data.xlsx"
 df = pd.read_excel(file_path)
+
+print(df.dtypes)
+print(df.head())
 
 def get_mcl(contaminant_name):
     row = df[df['Contaminant Name'] == contaminant_name]
     if not row.empty:
-        mcl = row['Maximum Contaminant Level (MCL)']
-        return mcl
+        mcl = row['Maximum Contaminant Level (MCL)'].values[0]
+        try:
+            return float(mcl)
+        except ValueError:
+            return 'Not found'
     else:
         return 'Not found'
+    
+    
     
 class WaterQualityScreen(Screen):
     pass
@@ -43,9 +51,12 @@ class WaterTestInputForm(BoxLayout):
         results = {}
         for contaminant, input_value in contaminants:
             mcl = get_mcl(contaminant)
+            print(f"Processing {contaminant}: input_value={input_value}, mcl={mcl}")
             if mcl != 'Not found':
                 try:
                     input_value = float(input_value)
+                    mcl = float(mcl)
+                    print(f"Converted values: input_value={input_value}, mcl={mcl}")
                     if input_value > mcl:
                         message = f"Exceeded"
                     else:
@@ -64,9 +75,9 @@ class WaterQualityApp(App):
     
 if __name__ == '__main__':
     Builder.load_file(r"C:/Users/sghal/New folder/TestGSS/NewGSSTeam12Project/kivy_design_files/waterqualityscreen.kv")
-    WaterQualityApp().run()
+    
 
-
+#WaterQualityApp().run()
 #if __name__== '__main__':
 #    WaterQualityApp().run()
         
