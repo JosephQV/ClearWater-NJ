@@ -49,6 +49,8 @@ class WaterTestInputForm(BoxLayout):
         ]
         
         results = {}
+        data_for_excel= []
+        
         for contaminant, input_value in contaminants:
             mcl = get_mcl(contaminant)
             print(f"Processing {contaminant}: input_value={input_value}, mcl={mcl}")
@@ -66,8 +68,14 @@ class WaterTestInputForm(BoxLayout):
             else:
                 message = "Not found"
             results[contaminant] = message
+            data_for_excel.append([contaminant, input_value, message])
+
         result_text = '/n'.join([f'{k}: {v}' for k, v in results.items()])
         self.result_label.text = result_text
+
+        df=pd.DataFrame(data_for_excel, columns=['Contaminant', 'Input Value', 'Message'])
+        df.to_excel('user_input_results.xlsx', index=False)
+        print("Data exported to user_input_results.xlsx")
 
 class WaterQualityApp(App):
     def build(self):
