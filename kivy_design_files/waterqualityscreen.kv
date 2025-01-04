@@ -1,12 +1,16 @@
 <WaterQualityScreen>:
     name: "waterquality_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
 
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
+
+        UserMenuNavigation:
     
         FloatLayout:
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 0.78)
 
             Button:
                 size_hint: None, None 
@@ -16,7 +20,8 @@
                 on_release: app.root.current = "watercontaminantselection_screen"
                     
         ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
+            id: nav_bar_id
+            
 
 <WaterTestInputScreen>:
     name: "watertestinput_screen"
@@ -24,10 +29,14 @@
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Contaminant Input"
+            prev_screen: "watercontaminantselection_screen"
     
         BoxLayout:
             orientation: "vertical"
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 1.00)
             
             Label:
                 size_hint: (1.00, 0.10)
@@ -46,9 +55,6 @@
 
                     WaterTestInputForm:
                     
-
-        ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
 
 
 <WaterTestInputForm>:
@@ -146,9 +152,13 @@
         orientation: "vertical"
         size: root.width, root.height
     
+        BackMenuBar:
+            title_text: "Select Contaminants"
+            prev_screen: "waterquality_screen"
+
         BoxLayout:
             orientation: "vertical"
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 0.90)
 
             Label:
                 size_hint: (1.00, 0.10)
@@ -174,8 +184,6 @@
                     WaterContaminantSelectionForm:
                         id: selection_form
 
-        ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
 
 
 <WaterContaminantSelectionForm>:

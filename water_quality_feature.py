@@ -4,7 +4,7 @@ from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 
 
 class WaterQualityScreen(Screen):
-    pass
+    nav_bar_id = ObjectProperty(None)
 
 class WaterTestInputScreen(Screen):
     pass

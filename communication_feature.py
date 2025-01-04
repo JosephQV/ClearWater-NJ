@@ -3,6 +3,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 
 
+# This class is the main screen reached when navigating to a "communication" or "feedback"
+# menu within the app
 class CommunicationScreen(Screen):
     pass
 

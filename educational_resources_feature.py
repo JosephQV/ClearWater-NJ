@@ -26,9 +26,11 @@ class ResourceItem(BoxLayout):
     def get_link(self, display_name):
         file = fr"{os.curdir}\resources\DataSheets.xlsx"
         df = pd.read_excel(file)
-        result = df[df["Display Name"].str.casefold() == display_name]
+        result = df[df["Display Name"] == display_name]
         if not result.empty:
             return result.iloc[0]["Name"]
         else:
-            return None 
+            return None
+    
+
         

@@ -11,6 +11,7 @@ from communication_feature import *
 from settings_feature import *
 from home_feature import *
 from screen_navigation import *
+from shared_config import *
 
 
 # Setting default window size to (width, height) in pixels. This is a 9 x 16 aspect ratio.
@@ -39,7 +40,12 @@ main_kv_design_file = Builder.load_file(os.path.join(kivy_design_file_dir, "main
 # class to do what we need when starting the app, which for now is just returning the file path
 # of the main kivy design file, which creates a screen manager and each of the screens.
 class MainApplication(App):
+    primary_theme_color = PRIMARY_THEME_COLOR
+    secondary_theme_color = SECONDARY_THEME_COLOR
+        
     def build(self):
+        # this design file returns a screen manager, it is set to an attribute of the app class here.
+        self.screen_manager = main_kv_design_file
         return main_kv_design_file
 
 
