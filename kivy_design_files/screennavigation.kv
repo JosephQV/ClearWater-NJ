@@ -121,6 +121,7 @@
     cols: 4
     row_force_default: True 
     row_default_height: self.height
+    padding: 15, 5, 5, 5
 
     canvas.before:
         Color:
@@ -133,7 +134,8 @@
         id: app_icon_id
         source: root.app_icon_path
         size_hint: None, None
-        size: root.height, root.height
+        size: 0.60 * root.height, 0.60 * root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
     Label:
         id: app_title_id
@@ -142,13 +144,14 @@
         text: "App Title"
         color: "#000000"
 
-    Widget:
+    Widget: # This placeholder fills the rest of the space in the layout
 
     Button:
         id: user_btn_id
         size_hint: None, None
         size: root.height, root.height
         background_normal: ""
+        background_down: ""
         on_release:
             app.root.current = "waterquality_screen"
 
@@ -163,6 +166,7 @@
         size_hint: None, None
         size: root.height, root.height
         background_normal: ""
+        background_down: ""
         on_release:
             root.navigate_to_settings(app.root)
 
@@ -171,6 +175,7 @@
             size: 0.50 * root.height, 0.50 * root.height
             center: settings_btn_id.center
             source: root.settings_icon_path
+
 
 <BackMenuBar>:
     size_hint: 1.00, 0.10
@@ -188,6 +193,7 @@
         size_hint: None, None
         size: root.height, root.height
         background_normal: ""
+        background_down: ""
         on_release:
             root.back_to_prev_screen(app.root)
 

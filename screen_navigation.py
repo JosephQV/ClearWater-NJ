@@ -92,7 +92,7 @@ class StartScreen(Screen):
     app_icon_path = fr"{os.curdir}\resources\icons\app_icon.png"
 
     def on_enter(self):
-        Clock.schedule_once(self.fade_to_home, 2)
+        Clock.schedule_once(self.fade_to_home, 3)
         
     
     def fade_to_home(self, time):

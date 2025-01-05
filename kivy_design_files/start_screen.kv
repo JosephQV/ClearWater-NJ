@@ -2,14 +2,23 @@
     name: "start_screen"
 
     FloatLayout:
-    
+
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
         Image:
             source: root.app_icon_path
-            size: 200, 200
-            pos_hint: {"center_x": 0.50, "center_y": 0.60}
+            size_hint: 0.60, 0.30
+            pos_hint: {"center_x": 0.50, "center_y": 0.65}
 
         Label:
             size: root.width/2, root.height/6
             pos_hint: {"center_x": 0.50, "center_y": 0.40}
             text: "App Title"
+            font_size: 28
+            color: "#000000"
             
