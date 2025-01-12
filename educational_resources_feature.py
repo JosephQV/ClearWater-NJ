@@ -16,15 +16,17 @@ class EducationalResourcesList(BoxLayout):
           
         
 class ResourceItem(BoxLayout):
-    resource_display_name = StringProperty(None)
-    
+    resource_display_name = StringProperty()
+    resource_link = StringProperty()
+    resource_image = StringProperty()
+
     def open_resource_link(self):
         link = self.get_link(self.resource_display_name)
         if link is not None:
             webbrowser.open(link)     
     
     def get_link(self, display_name):
-        file = fr"{os.curdir}\resources\DataSheets.xlsx"
+        file = fr"{os.curdir}/resources/DataSheets.xlsx"
         df = pd.read_excel(file)
         result = df[df["Display Name"] == display_name]
         if not result.empty:
