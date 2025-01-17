@@ -1,18 +1,15 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
-from kivy.app import App
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
 import pandas as pd
-from kivy.lang import Builder
+import os
 
-file_path= r"C:\Users\sghal\New folder\TestGSS\GSS Inorganic Chemicals Data.xlsx"
-df = pd.read_excel(file_path)
+contaminant_data = fr"{os.curdir}/resources/GSS_Inorganic_Chemicals_Data.xlsx"
 
-print(df.dtypes)
-print(df.head())
 
 def get_mcl(contaminant_name):
-    row = df[df['Contaminant Name'] == contaminant_name]
+    contaminant_df = pd.read_excel(contaminant_data)
+    row = contaminant_df[contaminant_df['Contaminant Name'] == contaminant_name]
     if not row.empty:
         mcl = row['Maximum Contaminant Level (MCL)'].values[0]
         try:
@@ -36,11 +33,7 @@ class WaterTestInputForm(BoxLayout):
     kv_contaminant_value_3 = ObjectProperty(None)
     kv_contaminant_value_4 = ObjectProperty(None)
     kv_contaminant_value_5 = ObjectProperty(None)
-    result_label = ObjectProperty(None)
     submit_button = ObjectProperty(None)
-    
-    def __init__(self, **kwargs):
-        super(WaterTestInputForm, self).__init__(**kwargs)
     
     def submit_button_action(self):
         contaminants = [
@@ -73,34 +66,26 @@ class WaterTestInputForm(BoxLayout):
             results[contaminant] = message
             data_for_excel.append([contaminant, input_value, message])
 
-        result_text = '/n'.join([f'{k}: {v}' for k, v in results.items()])
-        self.result_label.text = result_text
+        result_text = '\n'.join([f'{k}: {v}' for k, v in results.items()])
+        print(result_text) # placeholder for testing
 
         df=pd.DataFrame(data_for_excel, columns=['Contaminant', 'Input Value', 'Message'])
-        df.to_excel('user_input_results.xlsx', index=False)
-        print("Data exported to user_input_results.xlsx")
+        df.to_excel(fr"{os.curdir}/resources/user/test_results.xlsx", index=False)
 
-class WaterQualityApp(App):
-    def build(self):
-        return WaterTestInputForm()
+
+class WaterTestInputItem(BoxLayout):
+    contaminant_name = StringProperty("")
+
+
+class WaterContaminantSelectionScreen(Screen):
     
-if __name__ == '__main__':
-    Builder.load_file(r"C:/Users/sghal/New folder/TestGSS/NewGSSTeam12Project/kivy_design_files/waterqualityscreen.kv")
-    
-
-#WaterQualityApp().run()
-#if __name__== '__main__':
-#    WaterQualityApp().run()
-        
-        # Load data into pandas dataframe like
-        # Contaminant Name  Level
-        # ...               ...
-        # ...               ...
-        # etc.              etc.
-
+    def refresh_screen(self, selection_form):
+        form_container_widget = selection_form.ids.selection_form_container
+        selection_form.clear_form(form_container_widget)
 
 
 class WaterContaminantSelectionForm(BoxLayout):
+    
     def process_contaminant_selections(self, form_container_widget):
         selected = dict()
         child_widgets = form_container_widget.children
