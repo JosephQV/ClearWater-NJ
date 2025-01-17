@@ -5,18 +5,19 @@
         orientation: "vertical"
         size: root.width, root.height
 
+        BackMenuBar:
+            title_text: "Settings"
+            prev_screen: "home_screen"
+
         BoxLayout:
             orientation: "vertical"
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 1.00)
         
-            Label:
-                size_hint: (1.00, 0.10)
-                text: "Settings Screen"
                 
             ScrollView:
                 do_scroll_x: False
                 do_scroll_y: True
-                size_hint: (1.00, 0.90)
+                size_hint: (1.00, 1.00)
                 size: (root.width, root.height)
 
                 BoxLayout: 
@@ -42,9 +43,6 @@
                         size_hint_y: None 
                         height: self.minimum_height
         
-        ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
-
 
 <SettingSelection>:
     orientation: "horizontal"

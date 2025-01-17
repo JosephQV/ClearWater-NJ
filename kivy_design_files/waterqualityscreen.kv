@@ -1,13 +1,42 @@
 <WaterQualityScreen>:
     name: "waterquality_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
 
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
+
+        UserMenuNavigation:
+    
+        FloatLayout:
+            size_hint: (1.00, 0.78)
+
+            Button:
+                size_hint: None, None 
+                size: 300, 120 
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                text: "Enter Water Test Results"
+                on_release: app.root.current = "watercontaminantselection_screen"
+                    
+        ScreenNavigationBar:
+            id: nav_bar_id
+            
+
+<WaterTestInputScreen>:
+    name: "watertestinput_screen"
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Contaminant Input"
+            prev_screen: "watercontaminantselection_screen"
     
         BoxLayout:
             orientation: "vertical"
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 1.00)
             
             Label:
                 size_hint: (1.00, 0.10)
@@ -25,17 +54,13 @@
                     height: self.minimum_height
 
                     WaterTestInputForm:
-                        size_hint_y: None 
-                        height: self.minimum_height
-
-        ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
+                    
 
 
 <WaterTestInputForm>:
-    orientation: "vertical"
     size_hint_y: None 
     height: self.minimum_height
+    orientation: "vertical"
 
     contaminant_1: kv_contaminant_1
     contaminant_2: kv_contaminant_2
@@ -44,8 +69,6 @@
     contaminant_5: kv_contaminant_5
 
     GridLayout:
-        size_hint_y: None
-        height: self.minimum_height
         cols: 1
 
         BoxLayout:
@@ -119,3 +142,85 @@
             text: "Submit"
             on_release: 
                 root.submit_button_action()
+
+
+<WaterContaminantSelectionScreen>:
+    name: "watercontaminantselection_screen"
+    on_enter: self.refresh_screen(self.ids.selection_form)
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+    
+        BackMenuBar:
+            title_text: "Select Contaminants"
+            prev_screen: "waterquality_screen"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (1.00, 0.90)
+
+            Label:
+                size_hint: (1.00, 0.10)
+                text: "Select the water contaminants you have test results for"
+                text_size: 3/4 * self.width, None
+                size_hint_y: None 
+                height: 2 * self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+                font_size: 26
+            
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: (1.00, 0.90)
+                size: (root.width, root.height)
+
+                BoxLayout: 
+                    orientation: "vertical"
+                    size_hint_y: None 
+                    height: self.minimum_height
+
+                    WaterContaminantSelectionForm:
+                        id: selection_form
+
+
+
+<WaterContaminantSelectionForm>:
+    size_hint_y: None 
+    height: self.minimum_height
+    orientation: "vertical"
+
+    GridLayout:
+        id: selection_form_container
+        cols: 1
+
+        ContaminantSelectableItem:
+            contaminant_text: "Lead"
+
+        ContaminantSelectableItem:
+            contaminant_text: "Chlorine"
+
+        ContaminantSelectableItem:
+            contaminant_text: "etc."
+
+        Button:
+            size_hint_y: None 
+            height: 80
+            text: "Go to input"
+            on_release:
+                root.process_contaminant_selections(root.ids.selection_form_container)
+                app.root.current = "watertestinput_screen"
+
+        
+<ContaminantSelectableItem>:
+    orientation: "horizontal"
+    size_hint_y: None 
+    height: 80
+
+    Label:
+        text: root.contaminant_text
+    
+    CheckBox:
+        id: check_box
+        on_active: root.is_selected = True

@@ -1,13 +1,17 @@
 <CommunicationScreen>:
     name: "communication_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
 
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
+
+        UserMenuNavigation:
     
         BoxLayout:
             orientation: "vertical"
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 0.78)
 
             Label:
                 size_hint: (1.00, 0.10)
@@ -19,23 +23,18 @@
                 size_hint: (1.00, 0.90)
                 size: (root.width, root.height)
 
-                BoxLayout: 
-                    orientation: "vertical"
-                    size_hint_y: None 
-                    height: self.minimum_height
-
-                    FeedbackNavigationMenu:
-                        size_hint_y: None 
-                        height: self.minimum_height
+                FeedbackNavigationMenu:
         
         ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
+            id: nav_bar_id
 
 
 <FeedbackNavigationMenu>:
     orientation: "vertical"
-    size_hint_y: None 
+    size_hint_y: None
     height: self.minimum_height
+    spacing: 10
+    padding: 10
 
     Label:
         size_hint_y: None
@@ -46,66 +45,26 @@
         size_hint_y: None
         height: self.minimum_height
         cols: 2
-        rows: 4
         padding: 5
 
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "Tap Water"
-                font_size: "14sp"
-                on_release:
-                    app.root.current = "tapwaterfeedback_screen"
+        FeedbackMenuItem:
+            item_text: "Tap Water"
+            selection_screen: "tapwaterfeedback_screen"
 
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "Nearby Surface Water"
-                font_size: "14sp"
+        FeedbackMenuItem:
+            item_text: "test email form (placeholder)"
+            selection_screen: "email_screen"
 
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
-            
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
 
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
-            
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
-
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
-            
-        BoxLayout:
-            size_hint_y: None
-            height: 90
-            Button:
-                text: "other"
-                font_size: "14sp"
+<FeedbackMenuItem>
+    height: 100
+    size_hint_y: None
+    text: self.item_text
+    text_size: self.width - 10, self.height - 10
+    halign: "center"
+    valign: "middle"
+    font_size: "14sp"
+    on_release: app.root.current = self.selection_screen
 
 
 <TapWaterFeedbackScreen>:
@@ -115,22 +74,53 @@
         orientation: "vertical"
         size: root.width, root.height
 
-        BoxLayout:
-            size_hint: 1.00, 0.15
-            orientation: "horizontal"
-
-            Button:
-                size_hint: 0.20, 1.00
-                text: "Back"
-                on_release:
-                    app.root.current = "communication_screen"
-            
-            Label:
-                size_hint: 0.80, 1.00
-                text: "Tap Water Feedback"
+        BackMenuBar:
+            title_text: "Tap Water Feedback"
+            prev_screen: "communication_screen"
 
         BoxLayout:
             size_hint: 1.00, 0.85
             orientation: "vertical"
 
 
+# An email form that will be recycled for any case of user feedback as needed.
+<EmailScreen>:
+    name: "email_screen"
+    id: email_screen    # giving an id so we can reference the screen elsewhere in this widget definition
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Email Feedback"
+            prev_screen: "communication_screen"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (1.00, 0.85)    # (width, height) size hints are relative to the parent widget
+            padding: 12                # outer margin separation
+
+            Label:
+                size_hint: (1.00, 0.10)    # these size hints are relative to the above Box Layout
+                text: email_screen.recipient
+
+            TextInput:
+                size_hint: (1.00, 0.75)
+                text: email_screen.email_body_text
+                on_text: email_screen.email_body_text = self.text    # updating the body text as it is entered
+                padding: 12               # outer margin separation 
+
+            Button:
+                size_hint: (1.00, 0.15)
+                text: "Send"
+                on_release: email_screen.test_submit()   # placeholder action
+
+
+
+        
+
+
+    
+
+        

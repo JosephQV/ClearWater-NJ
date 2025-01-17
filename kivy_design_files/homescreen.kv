@@ -1,12 +1,16 @@
 <HomeScreen>:
     name: "home_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
 
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
 
+        UserMenuNavigation:
+
         GridLayout:
-            size_hint: (1.00, 0.85)
+            size_hint: (1.00, 0.78)
             rows: 2
             cols: 1
         
@@ -15,4 +19,4 @@
                 text: "Home Screen"
         
         ScreenNavigationBar:
-            size_hint: (1.00, 0.15)
+            id: nav_bar_id
