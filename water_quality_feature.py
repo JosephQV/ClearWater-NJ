@@ -25,6 +25,9 @@ def get_mcl(contaminant_name):
     
     
 class WaterQualityScreen(Screen):
+    nav_bar_id = ObjectProperty(None)
+
+class WaterTestInputScreen(Screen):
     pass
 
 class WaterTestInputForm(BoxLayout):
@@ -94,3 +97,30 @@ if __name__ == '__main__':
         # ...               ...
         # ...               ...
         # etc.              etc.
+
+
+
+class WaterContaminantSelectionForm(BoxLayout):
+    def process_contaminant_selections(self, form_container_widget):
+        selected = dict()
+        child_widgets = form_container_widget.children
+        for child in child_widgets:
+            if type(child) is ContaminantSelectableItem:
+                selected.update({child.contaminant_text : child.is_selected})
+        print(selected)
+        return selected
+    
+    def clear_form(self, form_container_widget):
+        child_widgets = form_container_widget.children
+        for child in child_widgets:
+            if type(child) is ContaminantSelectableItem:
+                child.ids.check_box.active = False
+                child.is_selected = False
+
+
+class ContaminantSelectableItem(BoxLayout):
+    contaminant_text = StringProperty("Default Contaminant")
+    is_selected = BooleanProperty(False)
+    
+        
+        

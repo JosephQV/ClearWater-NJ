@@ -1,7 +1,9 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, StringProperty
 import webbrowser
+import pandas as pd
+import os
 
 
 class ResourcesScreen(Screen):
@@ -11,11 +13,24 @@ class ResourcesScreen(Screen):
 class EducationalResourcesList(BoxLayout):
     def __init__(self, **kwargs):
         super(EducationalResourcesList, self).__init__(**kwargs)
+          
         
+class ResourceItem(BoxLayout):
+    resource_display_name = StringProperty(None)
     
-    def open_resource_link(self, link): 
-        print(link)
-        # temporary, as an example
-        webbrowser.open("https://www-doh.nj.gov/doh-shad/topic/Water.html")
-        
+    def open_resource_link(self):
+        link = self.get_link(self.resource_display_name)
+        if link is not None:
+            webbrowser.open(link)     
+    
+    def get_link(self, display_name):
+        file = fr"{os.curdir}\resources\DataSheets.xlsx"
+        df = pd.read_excel(file)
+        result = df[df["Display Name"] == display_name]
+        if not result.empty:
+            return result.iloc[0]["Name"]
+        else:
+            return None
+    
+
         
