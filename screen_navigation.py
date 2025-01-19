@@ -27,17 +27,17 @@ class ScreenNavigationBar(GridLayout):
     resources_img = ObjectProperty(None)
     communication_img = ObjectProperty(None)
     
-    mywater_icon_path = "resources/icons/mywater_icon.png"
-    map_icon_path = "resources/icons/map_icon.png"
-    home_icon_path = "resources/icons/home_icon.png"
-    resources_icon_path = "resources/icons/resources_icon.png"
-    communication_icon_path = "resources/icons/communication_icon.png"
+    mywater_icon_path = fr"{os.curdir}/resources/icons/mywater_icon.png"
+    map_icon_path = fr"{os.curdir}/resources/icons/map_icon.png"
+    home_icon_path = fr"{os.curdir}/resources/icons/home_icon.png"
+    resources_icon_path = fr"{os.curdir}/resources/icons/resources_icon.png"
+    communication_icon_path = fr"{os.curdir}/resources/icons/communication_icon.png"
     
-    mywater_icon_selected_path = "resources/icons/mywater_icon_selected.png"
-    map_icon_selected_path = "resources/icons/map_icon_selected.png"
-    home_icon_selected_path = "resources/icons/home_icon_selected.png"
-    resources_icon_selected_path = "resources/icons/resources_icon_selected.png"
-    communication_icon_selected_path = "resources/icons/communication_icon_selected.png"
+    mywater_icon_selected_path = fr"{os.curdir}/resources/icons/mywater_icon_selected.png"
+    map_icon_selected_path = fr"{os.curdir}/resources/icons/map_icon_selected.png"
+    home_icon_selected_path = fr"{os.curdir}/resources/icons/home_icon_selected.png"
+    resources_icon_selected_path = fr"{os.curdir}/resources/icons/resources_icon_selected.png"
+    communication_icon_selected_path = fr"{os.curdir}/resources/icons/communication_icon_selected.png"
     
     default_icon_paths = [mywater_icon_path, map_icon_path, home_icon_path, resources_icon_path, communication_icon_path]
     selected_icon_paths = [mywater_icon_selected_path, map_icon_selected_path, home_icon_selected_path, resources_icon_selected_path, communication_icon_selected_path]

@@ -62,86 +62,57 @@
     height: self.minimum_height
     orientation: "vertical"
 
-    contaminant_1: kv_contaminant_1
-    contaminant_2: kv_contaminant_2
-    contaminant_3: kv_contaminant_3
-    contaminant_4: kv_contaminant_4
-    contaminant_5: kv_contaminant_5
+    kv_contaminant_value_1: contaminant1.ids.level_input
+    kv_contaminant_value_2: contaminant2.ids.level_input
+    kv_contaminant_value_3: contaminant3.ids.level_input
+    kv_contaminant_value_4: contaminant4.ids.level_input
+    kv_contaminant_value_5: contaminant5.ids.level_input
+    submit_button: submit_btn
 
     GridLayout:
         cols: 1
 
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-            padding: 10
-
-            Label:
-                text: "Lead (mg/L)"
-            
-            TextInput:
-                id: kv_contaminant_1
-                text: "0"
-                multiline: False
+        WaterTestInputItem:
+            id: contaminant1
+            contaminant_name: "Antimony"
         
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-            padding: 10
+        WaterTestInputItem:
+            id: contaminant2
+            contaminant_name: "Arsenic"
 
-            Label:
-                text: "Copper (mg/L)"
-            
-            TextInput:
-                id: kv_contaminant_2
-                text: "0"
-                multiline: False
-        
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-            padding: 10
-            
-            Label:
-                text: "other (mg/L)"
-            
-            TextInput:
-                id: kv_contaminant_3
-                text: "0"
-                multiline: False
-        
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-            padding: 10
+        WaterTestInputItem:
+            id: contaminant3
+            contaminant_name: "Asbestos"
 
-            Label:
-                text: "other (mg/L)"
-            
-            TextInput:
-                id: kv_contaminant_4
-                text: "0"
-                multiline: False
-    
-        BoxLayout:
-            size_hint_y: None
-            height: 120
-            padding: 10
+        WaterTestInputItem:
+            id: contaminant4
+            contaminant_name: "Barium"
 
-            Label:
-                text: "etc. (mg/L)"
-            
-            TextInput:
-                id: kv_contaminant_5
-                text: "0"
-                multiline: False
+        WaterTestInputItem:
+            id: contaminant5
+            contaminant_name: "Beryllium"
         
         Button:
             size_hint_y: None
             height: 120
+            id: submit_btn
             text: "Submit"
             on_release: 
                 root.submit_button_action()
+
+
+<WaterTestInputItem>:
+    size_hint_y: None
+    height: 120
+    padding: 10
+
+    Label:
+        text: root.contaminant_name
+    
+    TextInput:
+        id: level_input
+        text: "0"
+        multiline: False
 
 
 <WaterContaminantSelectionScreen>:
