@@ -1,0 +1,26 @@
+<UserScreen>:
+    name: "user_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "My Profile"
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: (1.00, 1.00)
+           
+            ScrollView:
+                do_scroll_x: False
+                do_scroll_y: True
+                size_hint: (1.00, 1.00)
+                size: (root.width, root.height)

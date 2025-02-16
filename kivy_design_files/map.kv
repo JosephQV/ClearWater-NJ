@@ -1,0 +1,23 @@
+<MapScreen>:
+    name: "map_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        UserMenuNavigation:
+
+        Widget:
+            size_hint: (1.00, 0.78)
+        
+        ScreenNavigationBar:
+            id: nav_bar_id

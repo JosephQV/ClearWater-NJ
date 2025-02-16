@@ -11,10 +11,9 @@ class ResourcesScreen(Screen):
 
 
 class EducationalResourcesList(BoxLayout):
-    def __init__(self, **kwargs):
-        super(EducationalResourcesList, self).__init__(**kwargs)
+    pass
           
-        
+                
 class ResourceItem(BoxLayout):
     resource_display_name = StringProperty(None)
     
@@ -24,7 +23,7 @@ class ResourceItem(BoxLayout):
             webbrowser.open(link)     
     
     def get_link(self, display_name):
-        file = fr"{os.curdir}\resources\DataSheets.xlsx"
+        file = fr"{os.curdir}\resources\InAppResources.xlsx"
         df = pd.read_excel(file)
         result = df[df["Display Name"] == display_name]
         if not result.empty:

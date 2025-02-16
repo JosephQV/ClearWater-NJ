@@ -1,19 +1,24 @@
 <SettingsScreen>:
     name: "settings_screen"
 
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
 
         BackMenuBar:
             title_text: "Settings"
-            prev_screen: "home_screen"
 
         BoxLayout:
             orientation: "vertical"
             size_hint: (1.00, 1.00)
         
-                
             ScrollView:
                 do_scroll_x: False
                 do_scroll_y: True
@@ -26,6 +31,7 @@
                     height: self.minimum_height
         
                     SettingSelection:
+                        id: language_setting
                         setting_name: "Language"
                         setting_choices: ["English", "Español"]
                         size_hint_y: None 
@@ -47,19 +53,22 @@
 <SettingSelection>:
     orientation: "horizontal"
     padding: 10
+    selection_spinner: spinner_id
 
     Label:
         size_hint_x: 0.30
         size_hint_y: None
         text: root.setting_name
+        color: "#000000"
         text_size: self.width, None
         halign: "center"
         valign: "middle"
     
     Spinner:
+        id: spinner_id
         size_hint_x: 0.70
         size_hint_y: None
         text: root.setting_choices[0]
         values: root.setting_choices
         on_text:
-            print(f"Changed setting to {self.text}")
+            app.update_language(root.selection_spinner.text)

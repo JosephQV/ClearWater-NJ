@@ -1,5 +1,4 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty
@@ -14,13 +13,12 @@ class CommunicationScreen(Screen):
 # This class defines a widget we will use on the commmunication screen to contain a
 # menu of different choices for topics of feedback.
 class FeedbackNavigationMenu(BoxLayout):
-    def __init__(self, **kwargs):
-        super(FeedbackNavigationMenu, self).__init__(**kwargs)
+    pass
         
 
 class FeedbackMenuItem(Button):
-    item_text = StringProperty("")          # text displayed for this option
-    screen_selection = ""   # screen name to navigate to when clicked
+    button_text = StringProperty("")          # text displayed for this option
+    screen = StringProperty("")  # screen name to navigate to when clicked
         
 
 # These classes represent Screens that would be navigated to from the communication

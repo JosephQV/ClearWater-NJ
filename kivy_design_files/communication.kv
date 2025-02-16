@@ -3,6 +3,13 @@
     nav_bar_id: nav_bar_id
     on_enter: self.nav_bar_id.color_buttons(self.name)
 
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
@@ -12,10 +19,6 @@
         BoxLayout:
             orientation: "vertical"
             size_hint: (1.00, 0.78)
-
-            Label:
-                size_hint: (1.00, 0.10)
-                text: "Communication/Feedback Screen"
 
             ScrollView:
                 do_scroll_x: False
@@ -38,7 +41,17 @@
 
     Label:
         size_hint_y: None
+        text: app.text["communication_screen"]["overview"]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+        
+    Label:
+        size_hint_y: None
         height: 90
+        color: "#000000"
         text: "I have concerns or feedback about my..."
 
     GridLayout:
@@ -48,23 +61,30 @@
         padding: 5
 
         FeedbackMenuItem:
-            item_text: "Tap Water"
-            selection_screen: "tapwaterfeedback_screen"
+            button_text: "Tap Water Quality"
+            screen: "tapwaterfeedback_screen"
 
         FeedbackMenuItem:
-            item_text: "test email form (placeholder)"
-            selection_screen: "email_screen"
+            button_text: "Water Bill"
+
+        FeedbackMenuItem:
+            button_text: "Water Pipes and Infrastructure"
+
+        FeedbackMenuItem:
+            button_text: "test email form (placeholder)"
+            screen: "email_screen"
 
 
 <FeedbackMenuItem>
     height: 100
     size_hint_y: None
-    text: self.item_text
+    text: self.button_text
     text_size: self.width - 10, self.height - 10
     halign: "center"
     valign: "middle"
     font_size: "14sp"
-    on_release: app.root.current = self.selection_screen
+    on_release: 
+        app.root.switch_screens(root.screen, None)
 
 
 <TapWaterFeedbackScreen>:
@@ -76,7 +96,6 @@
 
         BackMenuBar:
             title_text: "Tap Water Feedback"
-            prev_screen: "communication_screen"
 
         BoxLayout:
             size_hint: 1.00, 0.85
@@ -94,7 +113,6 @@
 
         BackMenuBar:
             title_text: "Email Feedback"
-            prev_screen: "communication_screen"
 
         BoxLayout:
             orientation: "vertical"

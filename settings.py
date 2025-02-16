@@ -1,6 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, ListProperty
+from kivy.properties import ObjectProperty, StringProperty, ListProperty
 
 
 # Empty template for the settings screen, which is where the user will
@@ -14,4 +14,5 @@ class SettingsScreen(Screen):
 class SettingSelection(BoxLayout):
     setting_name = StringProperty("Setting")
     setting_choices = ListProperty(["Choice 1", "Choice 2"])
+    selection_spinner = ObjectProperty(None)
 

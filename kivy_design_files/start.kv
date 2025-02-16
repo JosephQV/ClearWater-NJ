@@ -11,14 +11,14 @@
                 size: self.size
 
         Image:
-            source: root.app_icon_path
+            source: app.images["app"]
             size_hint: 0.60, 0.30
             pos_hint: {"center_x": 0.50, "center_y": 0.65}
 
         Label:
             size: root.width/2, root.height/6
             pos_hint: {"center_x": 0.50, "center_y": 0.40}
-            text: "App Title"
+            text: app.title
             font_size: 28
             color: "#000000"
             
