@@ -16,14 +16,128 @@
 
         UserMenuNavigation:
 
-        GridLayout:
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
             size_hint: (1.00, 0.78)
-            rows: 2
-            cols: 1
-        
-            Label:
-                index: 0
-                text: "Home Screen"
+            size: (root.width, root.height)
+
+            BoxLayout:
+                size_hint_y: None
+                orientation: "vertical"
+                height: self.minimum_height
+                padding: 10
+
+                Label:
+                    size_hint_y: None
+                    text: app.text["home_screen"]["title"][app.language]
+                    color: "#000000"
+                    text_size: root.width, None
+                    size: self.texture_size
+                    halign: "center"
+                    padding: 10
+
+                WaterNewsFeed:
+                
         
         ScreenNavigationBar:
             id: nav_bar_id
+
+<WaterNewsFeed>:
+    orientation: "vertical"
+    size_hint_y: None 
+    height: self.minimum_height
+    spacing: 10
+
+    Label:
+        size_hint_y: None
+        text: app.text["home_screen"]["major_news_feed"][app.language]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+
+    ArticleList:
+        topic: "general"
+
+    Label:
+        size_hint_y: None
+        text: app.text["home_screen"]["your_system_feed"][app.language]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+
+    ArticleList:
+        topic: "my_water_system"
+
+<ArticleList>:
+    size_hint_y: None
+    height: self.minimum_height
+    cols: 1
+    spacing: 10
+
+<NewsItem>:
+    orientation: "vertical"
+    size_hint_y: None
+    height: self.minimum_height
+    padding: 10
+
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: title_and_image_layout
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: "horizontal"
+
+        BoxLayout:
+            id: title_layout
+            size_hint_y: None
+            size_hint_x: 0.75
+            height: self.minimum_height
+            orientation: "vertical"
+
+            Label:
+                size_hint_y: None
+                text: f"[ref=link][color=1c73ff][u]{root.title}[/u][/color][/ref]"
+                markup: True
+                text_size: title_layout.width, None
+                size: self.texture_size
+                color: "#000000"
+                padding: 10
+                halign: "center"
+                on_ref_press:
+                    root.open_news_link()
+
+            Label:
+                size_hint_y: None
+                text: root.published
+                text_size: title_layout.width, None
+                size: self.texture_size
+                color: "#000000"
+                padding: 10
+                halign: "center"
+
+        Image:
+            size_hint_y: None
+            size_hint_x: 0.25
+            source: root.img_source
+            size: 0.75 * title_and_image_layout.height, 0.75 * title_and_image_layout.height
+            pos_hint: {"center_x": 0.50, "center_y": 0.50}
+
+    Label:
+        size_hint_y: None
+        text: root.summary
+        text_size: root.width, None
+        size: self.texture_size
+        color: "#000000"
+        padding: 10 
+    

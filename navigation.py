@@ -11,12 +11,15 @@ from shared_config import IMAGES, PRIMARY_THEME_COLOR
 
 # Creating a class that sub-classes the kivy ScreenManager class for maintaing behavior
 # between multiple screens.
-class WindowManager(ScreenManager):        
+class WindowManager(ScreenManager):
+    prev_screen = StringProperty("")
+           
     def __init__(self, **kwargs):
         super(WindowManager, self).__init__(**kwargs)
         self.transition = NoTransition()
         
     def switch_screens(self, next_screen, transition):
+        self.prev_screen = self.current
         if transition == None:
             self.current = next_screen
         elif transition == "right":

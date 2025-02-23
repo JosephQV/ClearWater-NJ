@@ -1,6 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.core.window import Window
+from kivy.properties import StringProperty, DictProperty
 import os
 
 # Importing our own code from the other files
@@ -16,7 +17,7 @@ from user import *
 
 
 # Setting default window size to (width, height) in pixels. This is a 9 x 16 aspect ratio.
-Window.size = (350, 622)
+Window.size = (WINDOW_WIDTH, WINDOW_HEIGHT)
 
 # This is the main class that sub-classes the kivy App class.  We override the default build method of the App
 # class to do what we need when starting the app, which for now is just returning the file path
@@ -27,6 +28,7 @@ class MainApplication(App):
     colors = COLORS
     images = IMAGES
     language = StringProperty("en")
+    user_data = DictProperty({"username": "", "municipality": "", "county": "", "water_tests": []})
         
     def build(self):
         # These lines use the kivy Builder variable to load any kivy design files we created that are needed
@@ -41,6 +43,9 @@ class MainApplication(App):
         main_kv_design_file = Builder.load_file(os.path.join(kivy_design_file_dir, "main.kv"))
         # this design file returns a screen manager, it is set to an attribute of the app class here.
         self.screen_manager = main_kv_design_file
+        
+        self.user_data = get_user_data()
+        
         return main_kv_design_file
     
     def update_language(self, language_choice):

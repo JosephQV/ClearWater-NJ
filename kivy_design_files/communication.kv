@@ -15,16 +15,18 @@
         size: root.width, root.height
 
         UserMenuNavigation:
-    
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: (1.00, 0.78)
 
-            ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
-                size_hint: (1.00, 0.90)
-                size: (root.width, root.height)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: (1.00, 0.78)
+            size: (root.width, root.height)
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
 
                 FeedbackNavigationMenu:
         
@@ -41,12 +43,11 @@
 
     Label:
         size_hint_y: None
-        text: app.text["communication_screen"]["overview"]
+        text: app.text["communication_screen"]["overview"][app.language]
         color: "#000000"
         text_size: root.width, None
         size: self.texture_size
         halign: "center"
-        padding: 10
         
     Label:
         size_hint_y: None
@@ -58,7 +59,8 @@
         size_hint_y: None
         height: self.minimum_height
         cols: 2
-        padding: 5
+        padding: 10
+        spacing: 10
 
         FeedbackMenuItem:
             button_text: "Tap Water Quality"
@@ -66,12 +68,14 @@
 
         FeedbackMenuItem:
             button_text: "Water Bill"
+            screen: "home_screen" # placeholder
 
         FeedbackMenuItem:
             button_text: "Water Pipes and Infrastructure"
+            screen: "home_screen" # placeholder
 
         FeedbackMenuItem:
-            button_text: "test email form (placeholder)"
+            button_text: "Send Feedback" # placeholder
             screen: "email_screen"
 
 
@@ -83,6 +87,9 @@
     halign: "center"
     valign: "middle"
     font_size: "14sp"
+    background_normal: ""
+    background_color: app.colors["secondary"]["rgba"]
+    background_down: ""
     on_release: 
         app.root.switch_screens(root.screen, None)
 
@@ -96,6 +103,7 @@
 
         BackMenuBar:
             title_text: "Tap Water Feedback"
+            back_screen: "communication_screen"
 
         BoxLayout:
             size_hint: 1.00, 0.85
@@ -113,6 +121,7 @@
 
         BackMenuBar:
             title_text: "Email Feedback"
+            back_screen: "communication_screen"
 
         BoxLayout:
             orientation: "vertical"
@@ -132,6 +141,9 @@
             Button:
                 size_hint: (1.00, 0.15)
                 text: "Send"
+                background_normal: ""
+                background_color: app.colors["secondary"]["rgba"]
+                background_down: ""
                 on_release: email_screen.test_submit()   # placeholder action
 
 

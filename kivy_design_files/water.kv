@@ -18,12 +18,16 @@
     
         FloatLayout:
             size_hint: (1.00, 0.78)
+            padding: 10
 
             Button:
                 size_hint: None, None 
                 size: 300, 120 
                 pos_hint: {"center_x": 0.5, "center_y": 0.5}
                 text: "Enter Water Test Results"
+                background_normal: ""
+                background_color: app.colors["secondary"]["rgba"]
+                background_down: ""
                 on_release:
                     app.root.current = "watercontaminantselection_screen"
                     
@@ -48,23 +52,15 @@
 
         BackMenuBar:
             title_text: "Contaminant Input"
-    
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: (1.00, 1.00)
+            back_screen: "watercontaminantselection_screen"
             
-            Label:
-                size_hint: (1.00, 0.10)
-                text: "water quality screen"
-            
-            ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
-                size_hint: (1.00, 0.90)
-                size: (root.width, root.height)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size: (root.width, root.height)
 
-                WaterTestInputForm:
-                    id: water_test_form
+            WaterTestInputForm:
+                id: water_test_form
 
 
 <WaterTestInputForm>:
@@ -72,17 +68,23 @@
     height: self.minimum_height
     orientation: "vertical"
     form_container: form_container
+    padding: 10
 
     GridLayout:
         id: form_container
         size_hint_y: None
         height: self.minimum_height
         cols: 1
+        padding: 10
+        spacing: 10
 
     Button:
         size_hint_y: None
-        height: 120
+        height: 80
         text: "Submit"
+        background_normal: ""
+        background_color: app.colors["secondary"]["rgba"]
+        background_down: ""
         on_release:
             root.submit_water_test()
             app.root.switch_screens("results_screen", None)
@@ -93,14 +95,27 @@
     height: 80
     padding: 10
 
-    Label:
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
+    Label:
         text: root.contaminant_name
-        color: 0, 0, 0, 1
+        color: "#000000"
+        text_size: self.width, None
+        size_hint_x: 0.75
+        height: self.texture_size[1]
+        halign: "left"
+        valign: "center"
+        pos_hint: {"center_y": 0.50, "center_x": 0.50}
     
     TextInput:
         id: input_box
         hint_text: "0"
+        size_hint_x: 0.25
         on_text: root.level_input_text = self.text
         multiline: False
 
@@ -122,6 +137,7 @@
     
         BackMenuBar:
             title_text: "Select Contaminants"
+            back_screen: "waterquality_screen"
 
         BoxLayout:
             orientation: "vertical"
@@ -136,6 +152,7 @@
                 halign: "center"
                 valign: "middle"
                 font_size: 26
+                color: "#000000"
             
             ScrollView:
                 do_scroll_x: False
@@ -151,20 +168,26 @@
     height: self.minimum_height
     orientation: "vertical"
     form_container: form_container
+    padding: 10
 
     GridLayout:
         id: form_container
         cols: 1
         size_hint_y: None
         height: self.minimum_height
+        padding: 10
+        spacing: 10
 
-        Button:
-            size_hint_y: None 
-            height: 80
-            text: "Go to input"
-            on_release:
-                app.root.get_screen("watercontaminantselection_screen").process_contaminant_selections(root)
-                app.root.switch_screens("watertestinput_screen", None)
+    Button:
+        size_hint_y: None 
+        height: 80
+        text: "Submit"
+        background_normal: ""
+        background_color: app.colors["secondary"]["rgba"]
+        background_down: ""
+        on_release:
+            app.root.get_screen("watercontaminantselection_screen").process_contaminant_selections(root)
+            app.root.switch_screens("watertestinput_screen", None)
                    
 <ContaminantSelectableItem>:
     orientation: "horizontal"
@@ -173,15 +196,29 @@
     check_box: check_box
     padding: 10
 
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     Label:
         text: root.contaminant_text
         color: "#000000"
-        background_color: app.colors["tertiary"]["rgba"]
+        text_size: self.width, None
+        size_hint_x: 0.75
+        height: self.texture_size[1]
+        halign: "left"
+        valign: "center"
+        pos_hint: {"center_y": 0.50, "center_x": 0.50}
     
     CheckBox:
         id: check_box
         on_active: root.is_selected = True
-        background_color: app.colors["secondary"]["rgba"]
+        color: app.colors["secondary"]["rgba"]
+        size_hint_x: 0.25
+        height: root.height
 
 <WaterTestResultsScreen>:
     name: "results_screen"
@@ -192,6 +229,7 @@
     
         BackMenuBar:
             title_text: "Water Test Results"
+            back_screen: "waterquality_screen"
 
         BoxLayout:
             orientation: "vertical"

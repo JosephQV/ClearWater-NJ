@@ -14,13 +14,107 @@
 
         BackMenuBar:
             title_text: "My Profile"
-
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: (1.00, 1.00)
+            back_screen: "home_screen"
            
-            ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
-                size_hint: (1.00, 1.00)
-                size: (root.width, root.height)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size: (root.width, root.height)
+            padding: 10
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None
+                height: self.minimum_height
+                padding: 10
+
+                Label:
+                    size_hint_y: None
+                    text: "Welcome, " + app.user_data["username"]
+                    color: "#000000"
+                    text_size: root.width, None
+                    size: self.texture_size
+                    halign: "center"
+                    padding: 10
+
+                Button:
+                    text: "Edit User Details"
+                    height: 200
+                    size_hint_y: None
+                    on_press:
+                        app.root.switch_screens("userdata_screen", None)
+                    
+<UserDataScreen>:
+    name: "userdata_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Edit Personalized Information"
+            back_screen: "user_screen"
+
+        UserDataForm:
+
+
+<UserDataForm>:
+    size: root.width, root.height
+    orientation: "vertical"
+
+    Label:
+        text: "Username: "
+        height: 80
+        color: "#000000"
+
+    TextInput:
+        hint_text: ""
+        text: root.username
+        on_text: root.username = self.text
+        multiline: False
+        height: 80
+    
+    Label:
+        text: "NJ Municipality (Your Town or City): "
+        height: 80
+        color: "#000000"
+
+    TextInput:
+        hint_text: ""
+        text: root.municipality
+        on_text: root.municipality = self.text
+        multiline: False
+        height: 80
+
+    Label:
+        text: "NJ County: "
+        height: 80
+        color: "#000000"
+
+    TextInput:
+        hint_text: ""
+        text: root.county
+        on_text: root.county = self.text
+        multiline: False
+        height: 80
+
+    Button:
+        text: "Submit"
+        height: 100
+        background_normal: ""
+        background_color: app.colors["secondary"]["rgba"]
+        background_down: ""
+        on_press: 
+            app.user_data = root.submit_user_data()
+            app.root.switch_screens("user_screen", None)
+
+    Widget:
+
+

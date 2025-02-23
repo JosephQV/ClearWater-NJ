@@ -1,10 +1,14 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
-import datetime
+import datetime, time
 import os
+import json
+import pathlib
 
 from contaminant_databases import get_contaminant_dataframe, get_weighted_contaminant_score
+from shared_config import USER_DATA_FILE
+from user import get_user_data
 
 
 class WaterQualityScreen(Screen):
@@ -64,7 +68,6 @@ class WaterTestInputForm(BoxLayout):
             if row is not None:
                 mcl = float(row["Maximum Contaminant Level (MCL)"])
                 mclg = float(row["Maximum Contaminant Level Goal (MCLG)"])
-                print(contaminant, mcl, mclg, user_level)
                 try:
                     if user_level > mcl:
                         message = f"Exceeded"
@@ -80,8 +83,13 @@ class WaterTestInputForm(BoxLayout):
                 message = "Not found"
             print(message)
 
-        user_results_df.to_excel(fr"{os.curdir}/resources/user/test_results_{datetime.date.today()}.xlsx")
-        get_weighted_contaminant_score(user_results_df)
+        user_results_df.to_excel(fr"{os.curdir}/resources/user/test_results_{datetime.date.today()}_{time.time()}.xlsx")
+        user_scores = get_weighted_contaminant_score(user_results_df)
+        
+        user_data = get_user_data()
+        with open(USER_DATA_FILE, "w") as file:
+            user_data["water_tests"] = user_data["water_tests"] + {"date": datetime.date.today(), "scores": user_scores}
+            json.dump(user_data, file)
 
 
 class WaterTestInputItem(BoxLayout):
@@ -107,7 +115,6 @@ class WaterContaminantSelectionScreen(Screen):
         selected = dict()
         for contaminant, selection_item in selection_form.contaminant_selections.items():
             selected.update({contaminant : selection_item.is_selected})
-        print(selected)
         
         self.manager.get_screen("watertestinput_screen").create_water_test_form(selected)
 

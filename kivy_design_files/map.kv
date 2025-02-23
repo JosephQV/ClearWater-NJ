@@ -16,8 +16,34 @@
 
         UserMenuNavigation:
 
-        Widget:
+        InteractiveMap:
             size_hint: (1.00, 0.78)
         
         ScreenNavigationBar:
             id: nav_bar_id
+
+<InteractiveMap>:
+    orientation: "vertical"
+    padding: 10
+    spacing: 10
+
+    Button:
+        text: "Load Map"
+        height: 120
+        size_hint: (1.00, 0.15)
+        background_normal: ""
+        background_color: app.colors["secondary"]["rgba"]
+        background_down: ""
+        on_press: root.load_map()
+
+    Button:
+        text: "Open Map"
+        height: 120
+        size_hint: (1.00, 0.15)
+        background_normal: ""
+        background_color: app.colors["secondary"]["rgba"]
+        background_down: ""
+        on_press: root.open_map()
+
+    Widget: # placeholder to fill space
+        size_hint: (1.00, 0.70)

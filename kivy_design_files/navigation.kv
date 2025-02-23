@@ -61,10 +61,7 @@
 
 <UserMenuNavigation>:
     size_hint: 1.00, 0.10
-    cols: 4
-    row_force_default: True 
-    row_default_height: self.height
-    padding: 15, 5, 5, 5
+    padding: 10
 
     canvas.before:
         Color:
@@ -76,14 +73,14 @@
     Image:
         id: app_icon_id
         source: app.images["app"]
-        size_hint: None, None
-        size: 0.60 * root.height, 0.60 * root.height
+        size: root.height, root.height
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
     Label:
         id: app_title_id
         size_hint: None, None
         size: root.height*2, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         text: app.title
         color: "#000000"
 
@@ -93,6 +90,7 @@
         id: user_btn_id
         size_hint: None, None
         size: root.height, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         background_normal: ""
         background_color: app.colors["tertiary"]["rgba"]
         background_down: ""
@@ -109,6 +107,7 @@
         id: settings_btn_id
         size_hint: None, None
         size: root.height, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         background_normal: ""
         background_color: app.colors["tertiary"]["rgba"]
         background_down: ""
@@ -141,7 +140,7 @@
         background_down: ""
         background_color: app.colors["tertiary"]["rgba"]
         on_release:
-            app.root.switch_screens(app.root.previous(), None)
+            app.root.switch_screens(root.back_screen, None)
 
         Image:
             size_hint: None, None

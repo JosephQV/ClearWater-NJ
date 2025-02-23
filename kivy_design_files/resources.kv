@@ -1,7 +1,11 @@
 <ResourcesScreen>:
     name: "resources_screen"
     nav_bar_id: nav_bar_id
-    on_enter: self.nav_bar_id.color_buttons(self.name)
+    on_enter: 
+        self.nav_bar_id.color_buttons(self.name)
+        resource_widget.educational_list.add_resources(app.language)
+        resource_widget.contaminants_list.add_resources(app.language)
+        resource_widget.tools_list.add_resources(app.language)
 
     canvas.before:
         Color:
@@ -15,29 +19,33 @@
         size: root.width, root.height 
 
         UserMenuNavigation:
-    
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: (1.00, 0.78)
             
-            ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
-                size_hint: (1.00, 0.90)
-                size: (root.width, root.height)
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: (1.00, 0.78)
+            size: (root.width, root.height)
 
-                EducationalResourcesList:
-                    size_hint_y: None 
-                    height: self.minimum_height
+            BoxLayout:
+                size_hint_y: None 
+                height: self.minimum_height
+                orientation: "vertical"
+                padding: 10
+
+                ResourcesWidget:
+                    id: resource_widget
         
         ScreenNavigationBar:
             id: nav_bar_id
 
-
-<EducationalResourcesList>:
+<ResourcesWidget>:
     orientation: "vertical"
-    size_hint_y: None 
+    size_hint_y: None
     height: self.minimum_height
+    spacing: 10
+    educational_list: educational_list
+    contaminants_list: contaminants_list
+    tools_list: tools_list
 
     Label:
         size_hint_y: None
@@ -48,34 +56,83 @@
         halign: "center"
         padding: 10
 
-    GridLayout:
+    Label:
         size_hint_y: None
-        height: self.minimum_height
-        cols: 1
+        text: app.text["resources_screen"]["educational"][app.language]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
         padding: 10
 
-        ResourceItem:
-            resource_display_name: "NJ DOH Water Quality Overview"
-        
-        ResourceItem:
-            resource_display_name: "Example resource 2"
+    ResourcesList:
+        category: "General Educational"
+        id: educational_list
 
-        ResourceItem:
-            resource_display_name: "Example resource 3"
+    Label:
+        size_hint_y: None
+        text: app.text["resources_screen"]["contaminants"][app.language]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+
+    ResourcesList:
+        category: "Contaminants"
+        id: contaminants_list
+
+    Label:
+        size_hint_y: None
+        text: app.text["resources_screen"]["tools"][app.language]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+
+    ResourcesList:
+        category: "External Tool"
+        id: tools_list
+
+<ResourcesList>:
+    size_hint_y: None
+    height: self.minimum_height
+    cols: 1
+    padding: 10
+    spacing: 10
+    language: app.language
 
 <ResourceItem>:
     size_hint_y: None
-    height: 120
+    height: 100
+    padding: 10
+
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     Label:
-        text: f"another resource:\n[ref=link][color=1c73ff][u]{root.resource_display_name}[/u][/color][/ref]"
+        text: f"[ref=link][color=1c73ff][u]{root.display_name}[/u][/color][/ref]"
         markup: True
         color: "#000000"
         text_size: self.width, None
         size_hint_y: None 
+        size_hint_x: 0.75
         height: self.texture_size[1]
         halign: "left"
-        valign: "middle"
+        valign: "top"
+        pos_hint: {"top": 1.00, "center_x": 0.50}
         on_ref_press:
             root.open_resource_link()
+    
+    Image:
+        source: root.img_source
+        size_hint_y: None 
+        size_hint_x: 0.25
+        height: 0.75 * root.height
+        pos_hint: {"center_y": 0.50, "right": 1.0}
         

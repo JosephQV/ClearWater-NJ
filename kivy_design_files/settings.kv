@@ -14,46 +14,47 @@
 
         BackMenuBar:
             title_text: "Settings"
-
-        BoxLayout:
-            orientation: "vertical"
+            back_screen: "resources_screen"
+        
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
             size_hint: (1.00, 1.00)
+            size: (root.width, root.height)
+
+            BoxLayout: 
+                orientation: "vertical"
+                size_hint_y: None 
+                height: self.minimum_height
+                padding: 10
+    
+                SettingForm:
+
+<SettingForm>:
+    orientation: "vertical"
+    size_hint_y: None 
+    height: self.minimum_height
+    padding: 10
+    spacing: 10
+
+    SettingSelection:
+        setting_name: "Language"
+        setting_choices: ["English", "Español"]
         
-            ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
-                size_hint: (1.00, 1.00)
-                size: (root.width, root.height)
-
-                BoxLayout: 
-                    orientation: "vertical"
-                    size_hint_y: None 
-                    height: self.minimum_height
         
-                    SettingSelection:
-                        id: language_setting
-                        setting_name: "Language"
-                        setting_choices: ["English", "Español"]
-                        size_hint_y: None 
-                        height: self.minimum_height
-
-                    SettingSelection:
-                        size_hint_y: None 
-                        height: self.minimum_height
-
-                    SettingSelection:
-                        size_hint_y: None 
-                        height: self.minimum_height
-
-                    SettingSelection:
-                        size_hint_y: None 
-                        height: self.minimum_height
-        
-
 <SettingSelection>:
     orientation: "horizontal"
+    size_hint_y: None 
+    height: 100
     padding: 10
     selection_spinner: spinner_id
+
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
     Label:
         size_hint_x: 0.30
@@ -63,12 +64,17 @@
         text_size: self.width, None
         halign: "center"
         valign: "middle"
+        pos_hint: {"center_x": 0.50, "center_y": 0.50}
     
     Spinner:
         id: spinner_id
         size_hint_x: 0.70
         size_hint_y: None
+        pos_hint: {"center_x": 0.50, "center_y": 0.50}
         text: root.setting_choices[0]
+        background_normal: ""
+        background_down: ""
+        background_color: app.colors["secondary"]["rgba"]
         values: root.setting_choices
         on_text:
             app.update_language(root.selection_spinner.text)

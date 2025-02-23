@@ -1,3 +1,6 @@
 *.venv
 *__pycache__
 cache
+resources/copies
+resources/backup
+resources/user

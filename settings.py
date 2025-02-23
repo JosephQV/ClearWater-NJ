@@ -9,6 +9,9 @@ class SettingsScreen(Screen):
     pass
 
 
+class SettingForm(BoxLayout):
+    pass
+
 # This simple widget is defined to make it easier to add options to
 # the settings screen by just providing a name and list of choices.
 class SettingSelection(BoxLayout):
