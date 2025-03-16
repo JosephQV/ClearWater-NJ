@@ -3,6 +3,8 @@ from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty
 
+import webbrowser
+
 
 # This class is the main screen reached when navigating to a "communication" or "feedback"
 # menu within the app
@@ -19,24 +21,46 @@ class FeedbackNavigationMenu(BoxLayout):
 class FeedbackMenuItem(Button):
     button_text = StringProperty("")          # text displayed for this option
     screen = StringProperty("")  # screen name to navigate to when clicked
-        
-
-# These classes represent Screens that would be navigated to from the communication
-# screen for different topics of feedback. For now there is just this one as a
-# placeholder / example.
-class TapWaterFeedbackScreen(Screen):
-    pass
-
     
 class EmailScreen(Screen):
     recipient = "default recipient (placeholder)"
+    email_subject_text = StringProperty("Default email subject (placeholder)")
     email_body_text = StringProperty("Default email body (placeholder)")
     
-    
-    def test_submit(self):
-        # placeholder function to demonstrate calling a function upon clicking a
-        # button in the form
-        # print attribute values
+    def submit_email(self):
+        # not implemented yet
         print(self.recipient)
         print(self.email_body_text)
-        self.email_body_text = "Submitted"
+        self.email_body_text = "Submitted" # Visual confirmation
+        
+        
+# These classes represent Screens that are navigated to from the communication
+# screen for different topics of feedback.
+class TapWaterFeedbackScreen(Screen):
+    testkitslink = "https://thewatershed.org/tapwatch"
+    checkpipeslink = "https://www.nj.gov/dep/watersupply/dwc-lead-consumer.html"
+    njdepcomplaintlink = "https://www.nj.gov/dep/watersupply/pwq-complaint.html"
+    
+    def open_link(self, link):
+        webbrowser.open(link)
+
+class WaterBillFeedbackScreen(Screen):
+    pass
+
+class HomePipesFeedbackScreen(Screen):
+    pass
+
+class StateInfrastructureFeedbackScreen(Screen):
+    pass
+
+class SurfaceWaterFeedbackScreen(Screen):
+    pass
+
+class PollutionFeedbackScreen(Screen):
+    pass
+
+class FloodingFeedbackScreen(Screen):
+    pass
+
+class WatershedFeedbackScreen(Screen):
+    pass

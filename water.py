@@ -88,7 +88,7 @@ class WaterTestInputForm(BoxLayout):
         
         user_data = get_user_data()
         with open(USER_DATA_FILE, "w") as file:
-            user_data["water_tests"] = user_data["water_tests"] + {"date": datetime.date.today(), "scores": user_scores}
+            user_data["water_tests"] = user_data["water_tests"].append({"date": datetime.date.today(), "scores": user_scores})
             json.dump(user_data, file)
 
 

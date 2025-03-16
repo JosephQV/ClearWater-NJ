@@ -52,10 +52,16 @@ def get_recent_news(topic):
             article = {
                 "title": entry.title,
                 "link": entry.link,
-                "published": entry.published,
+                "published": entry.published[:17],
                 "summary": entry.summary,
                 "img_source": IMAGES["njdep"]
             }
+            # Remove a part of the summary string that is not wanted
+            s =  article["summary"]
+            s = s.replace("<p>", "")
+            s = s.replace("</p>", "")
+            index = s.find("/>")
+            article["summary"] = s[index+2:].strip() if index != -1 else s
             # Check if article is recent enough to consider
             if check_date_is_recent(entry.published_parsed, max_days_old=90):
                 # Check if the tags associated with the article fit at least 1 desired keyword
