@@ -151,7 +151,7 @@
                 size: 400, 100
                 size_hint: None, None
                 halign: "center"
-                pos_hint: {"center_x": 0.50, "top": 0.75}
+                pos_hint: {"center_x": 0.50, "top": 0.80}
                 padding: 10
                 on_release: root.open_link(root.testkitslink)
 
@@ -165,7 +165,7 @@
                 halign: "center"
                 padding: 10
                 size_hint: None, None
-                pos_hint: {"center_x": 0.50, "top": 0.60}
+                pos_hint: {"center_x": 0.50, "top": 0.65}
                 on_release: root.open_link(root.checkpipeslink)
 
             Button:
@@ -178,14 +178,28 @@
                 padding: 10
                 halign: "center"
                 size_hint: None, None
-                pos_hint: {"center_x": 0.50, "top": 0.45}
+                pos_hint: {"center_x": 0.50, "top": 0.50}
                 on_release: root.open_link(root.njdepcomplaintlink)
+
+            Button:
+                text: "Send a direct email through ClearWater NJ"
+                background_down: ""
+                background_normal: ""
+                text_size: self.width, None
+                background_color: app.colors["secondary"]["rgba"]
+                size: 400, 100
+                padding: 10
+                halign: "center"
+                size_hint: None, None
+                pos_hint: {"center_x": 0.50, "top": 0.35}
+                on_release: 
+                    app.root.switch_screens("email_screen", None)
 
             Image:
                 source: r"C:\Users\josep\Desktop\Code\Local Projects\GSSTeam12Project\resources\icons\njdep_icon.png"
-                size: 200, 200
+                size: 180, 180
                 size_hint: None, None
-                pos_hint: {"center_x": 0.50, "top": 0.30}
+                pos_hint: {"center_x": 0.50, "top": 0.25}
 
 
 <WaterBillFeedbackScreen>:

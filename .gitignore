@@ -1,6 +1,6 @@
 *.venv
 *__pycache__
+*test/
 cache
 resources/copies
 resources/backup
-resources/user

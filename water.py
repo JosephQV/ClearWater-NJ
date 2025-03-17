@@ -1,10 +1,9 @@
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty, StringProperty, BooleanProperty
+from kivy.properties import ObjectProperty, StringProperty, BooleanProperty, DictProperty
 import datetime, time
 import os
 import json
-import pathlib
 
 from contaminant_databases import get_contaminant_dataframe, get_weighted_contaminant_score
 from shared_config import USER_DATA_FILE
@@ -34,7 +33,6 @@ class WaterTestInputForm(BoxLayout):
         contaminant_df = get_contaminant_dataframe()
         for contaminant, selected in selected_contaminants.items():
             if selected is True:
-                print(contaminant)
                 row = contaminant_df.loc[contaminant]
                 if row is not None:
                     input_item = WaterTestInputItem(
@@ -48,16 +46,22 @@ class WaterTestInputForm(BoxLayout):
     def clear_form(self):
         for input_item in self.contaminant_entries.values():
             self.form_container.remove_widget(input_item)
-            print("removing: ", input_item)
             
         self.contaminant_entries.clear()
     
     
     def submit_water_test(self):
+        # The saved results dataframe will begin as a copy of the contaminant
+        # MCL reference dataframe.
         user_results_df = get_contaminant_dataframe()
+        # Values for "Exceeds" for each contaminant are initially set to -1; signifying
+        # that the contaminant was not tested for (there won't be results for it).
         user_results_df["Exceeds"] = -1
         
+        summary_results_list = []
+        
         for contaminant, input_item in self.contaminant_entries.items():
+            
             row = user_results_df.loc[contaminant]
             try:
                 user_level = float(input_item.level_input_text)
@@ -68,27 +72,53 @@ class WaterTestInputForm(BoxLayout):
             if row is not None:
                 mcl = float(row["Maximum Contaminant Level (MCL)"])
                 mclg = float(row["Maximum Contaminant Level Goal (MCLG)"])
+                
+                message = f"{contaminant}\t\tMCL: {mcl}\tMCLG: {mclg}\t{user_level}"
+                
                 try:
                     if user_level > mcl:
-                        message = f"Exceeded"
+                        status = "Exceeded MCL"
+                        # A +2 for the contaminant signifies it exceeded the MCL (worst case)
                         user_results_df.loc[contaminant, "Exceeds"] = 2
                     elif user_level > mclg:
+                        status = "Exceeded MCLG"
+                         # A +1 for the contaminant signifies it exceeded the MCLG (second worst case)
                         user_results_df.loc[contaminant, "Exceeds"] = 1
                     else:
+                        status = "Did Not Exceed"
+                        # A 0 value for the contaminant signifies that it was tested for but did not exceed
+                        # the MCL or MCLG; this is a good result.
                         user_results_df.loc[contaminant, "Exceeds"] = 0
-                    message = "Entered " + contaminant
+                        
+                    summary_results_list.append(
+                        {
+                            "Contaminant": contaminant,
+                            "MCL": mcl,
+                            "MCLG": mclg,
+                            "Measured Level": user_level,
+                            "Status": status
+                        }
+                    )
+                    message += f"\t\t{status}"
+                        
                 except ValueError as e:
-                    message = "Invalid: " + str(e)
+                    message += "\t\tError: " + str(e)
             else:
-                message = "Not found"
+                message = "Row is None; contaminant not found in dataframe"
+                
             print(message)
+        
+        for item in summary_results_list:
+            print(item)
 
+        # Saving the entered results to a file
         user_results_df.to_excel(fr"{os.curdir}/resources/user/test_results_{datetime.date.today()}_{time.time()}.xlsx")
         user_scores = get_weighted_contaminant_score(user_results_df)
         
         user_data = get_user_data()
+        user_data["water_tests"].append({"date": str(datetime.date.today()), "scores": user_scores, "results": summary_results_list})
+
         with open(USER_DATA_FILE, "w") as file:
-            user_data["water_tests"] = user_data["water_tests"].append({"date": datetime.date.today(), "scores": user_scores})
             json.dump(user_data, file)
 
 
@@ -156,6 +186,12 @@ class WaterTestResultsScreen(Screen):
 
 
 class WaterTestResultsWidget(BoxLayout):
-    pass
+    user_data = DictProperty(get_user_data())
+    
+    def update_results_data(self):
+        self.user_data = get_user_data()
+        print(self.user_data)
+        
+        
         
         

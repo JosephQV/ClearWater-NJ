@@ -28,7 +28,7 @@ class MainApplication(App):
     colors = COLORS
     images = IMAGES
     language = StringProperty("en")
-    user_data = DictProperty({"username": "", "municipality": "", "county": "", "water_tests": []})
+    user_data = DictProperty(get_user_data())
         
     def build(self):
         # These lines use the kivy Builder variable to load any kivy design files we created that are needed
@@ -53,8 +53,7 @@ class MainApplication(App):
             self.language = "en"
         elif language_choice == "Español":
             self.language = "es"
-        print(language_choice)
-
+            
 
 # This if-statement just checks if the current running Python file's file name is "__main__". The name of the
 # current Python file is stored implicitly (by default) by Python in the __name__ variable. For the Python file

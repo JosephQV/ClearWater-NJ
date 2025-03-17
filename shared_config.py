@@ -43,8 +43,8 @@ WATER_SYSTEM_DATA_FILE = f"{os.curdir}/resources/PWS_By_Municipality.xlsx"
 CONTACT_INFO_DATA_FILE = fr"{os.curdir}/resources/PWS_Contact_Info.xlsx"
 IN_APP_RESOURCES_DATA_FILE = fr"{os.curdir}/resources/InAppResources.xlsx"
 MAP_FILE = fr"{os.curdir}/resources/geographical/map.html"
-MUNICIPALITIES_DATA_FILE = fr"{os.curdir}\resources\geographical\municipalities_data.geojson"
-COUNTIES_DATA_FILE = fr"{os.curdir}\resources\geographical\counties_data.geojson"
+MUNICIPALITIES_DATA_FILE = fr"{os.curdir}/resources/geographical/municipalities_data.geojson"
+COUNTIES_DATA_FILE = fr"{os.curdir}/resources/geographical/counties_data.geojson"
 
 
 IMAGES = {

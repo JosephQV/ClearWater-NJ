@@ -85,7 +85,6 @@ def get_recent_news(topic):
         water_system_articles = []
             
         for entry in water_system_feed.entries[:10]:  # Get the latest 10 articles
-            print(entry)
             article = {
                 "title": entry.title,
                 "link": entry.link,

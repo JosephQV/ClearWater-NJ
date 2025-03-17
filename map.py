@@ -1,16 +1,11 @@
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.core.window import Window
-from kivy.clock import Clock
 import folium
 import webview
-import os
-import geopandas as gpd
-import numpy as np
 from branca.colormap import LinearColormap
 
-from shared_config import MAP_FILE, WINDOW_HEIGHT, WINDOW_WIDTH
+from shared_config import MAP_FILE
 from contaminant_databases import construct_municipal_score_geodata
 
 
@@ -26,14 +21,17 @@ class MapScreen(Screen):
     pass
         
 
-class InteractiveMap(BoxLayout):
+class InteractiveMap(FloatLayout):
     def __init__(self, **kwargs):
         super(InteractiveMap, self).__init__(**kwargs)
 
         self.municipality_colormap = LinearColormap(colors=[(1., 0, 0, 1), (0, 1., 0, 1)], vmin=0, vmax=100)
         
-        municipal_gdf = construct_municipal_score_geodata()
-        self.create_map(municipal_gdf)
+        try:
+            municipal_gdf = construct_municipal_score_geodata()
+            self.create_map(municipal_gdf)
+        except Exception as e:
+            print("Failed to create map: ", str(e))
         
     def load_map(self):
         webview.create_window(
@@ -87,7 +85,6 @@ class InteractiveMap(BoxLayout):
         ).add_to(map)
         
         map.save(MAP_FILE)
-        print(MAP_FILE)
     
     def municipalities_style_function(self, feature):
         return {

@@ -23,14 +23,23 @@
             id: nav_bar_id
 
 <InteractiveMap>:
-    orientation: "vertical"
-    padding: 10
-    spacing: 10
+    size: root.width, root.height
+
+    Label:
+        text: "Use the tap water contamination tracking map to view the results of user-submitted tap water tests across municipalities in NJ. Add your own results to the collective data by submitting your tap water test results through this app."
+        color: "#000000"
+        text_size: self.width, None
+        size: 500, 150
+        size_hint: None, None
+        halign: "center"
+        padding: 10
+        pos_hint: {"center_x": 0.5, "top": 0.95}
 
     Button:
         text: "Load Map"
-        height: 120
-        size_hint: (1.00, 0.15)
+        size: 400, 100
+        size_hint: None, None
+        pos_hint: {"center_x": 0.5, "top": 0.65}
         background_normal: ""
         background_color: app.colors["secondary"]["rgba"]
         background_down: ""
@@ -38,12 +47,10 @@
 
     Button:
         text: "Open Map"
-        height: 120
-        size_hint: (1.00, 0.15)
+        size: 400, 100
+        size_hint: None, None
+        pos_hint: {"center_x": 0.5, "top": 0.50}
         background_normal: ""
         background_color: app.colors["secondary"]["rgba"]
         background_down: ""
         on_press: root.open_map()
-
-    Widget: # placeholder to fill space
-        size_hint: (1.00, 0.70)

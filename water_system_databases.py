@@ -12,7 +12,6 @@ def get_water_system_by_municipality(municipality):
     df = pd.read_excel(WATER_SYSTEM_DATA_FILE, dtype={"PWSID": str, "Municipality": str})
     df.set_index("PWSID", inplace=True)
     systems = []
-    print(df.head())
     for system, row in df.iterrows():
         if row["Municipality"] == municipality: 
             systems.append(row)
@@ -20,9 +19,19 @@ def get_water_system_by_municipality(municipality):
     return result_df
 
 
+def get_all_counties():
+    df = pd.read_excel(WATER_SYSTEM_DATA_FILE, dtype={"PWSID": str, "Municipality": str})
+    return df["County"]
+
+
+def get_all_municipalities():
+    df = pd.read_excel(WATER_SYSTEM_DATA_FILE, dtype={"PWSID": str, "Municipality": str})
+    return df["Municipality"]
+
+
 if __name__ == "__main__":
     # Testing
-    result = get_water_system_by_municipality("Atlantic City")
+    result = get_water_system_by_municipality("Union Twp")
     print(result.head())
    
     result = get_water_system_contact("NJ0102001")

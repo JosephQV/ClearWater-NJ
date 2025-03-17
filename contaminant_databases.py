@@ -1,6 +1,5 @@
 import pandas as pd
 import geopandas as gpd
-import os
 import numpy as np
 
 from shared_config import CONTAMINANT_DATA_FILE, CUMULATIVE_RESULTS_FILE, MUNICIPALITIES_DATA_FILE, COUNTIES_DATA_FILE
@@ -11,8 +10,12 @@ def get_cumulative_user_results():
 
 
 def get_geographical_data():
-    municipal_gdf = gpd.read_file(MUNICIPALITIES_DATA_FILE)
-    county_gdf = gpd.read_file(COUNTIES_DATA_FILE)
+    try:
+        municipal_gdf = gpd.read_file(MUNICIPALITIES_DATA_FILE)
+        county_gdf = gpd.read_file(COUNTIES_DATA_FILE)
+    except Exception as e:
+        print("Error getting geographical data: ", str(e))
+        return None, None
     return municipal_gdf, county_gdf
 
 
@@ -152,8 +155,6 @@ def construct_municipal_score_geodata():
             municipal_gdf.at[municipality, "Radionuclides"] = row["Total Radionuclides"] / row["Results Count"]
             municipal_gdf.at[municipality, "Overall"] = row["Total Overall"] / row["Results Count"]
     
-    print("Modified: ", modified_count)
-    print(municipal_gdf.head(10))
     return municipal_gdf
     
 
