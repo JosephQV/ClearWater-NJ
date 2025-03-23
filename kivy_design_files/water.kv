@@ -28,7 +28,6 @@
                 size_hint: None, None
                 pos_hint: {"center_x": 0.5, "top": 0.95}
                 halign: "center"
-                color: "#000000"
                 padding: 10
 
             Button:
@@ -297,3 +296,86 @@
         size: self.texture_size
         halign: "left"
         padding: 10
+
+<AllWaterTestsScreen>:
+    name: "all_water_tests_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+    
+        BackMenuBar:
+            title_text: "My Water Test Results"
+            back_screen: "user_screen"
+        
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: (1.00, 0.90)
+            size: (root.width, 400)
+
+            BoxLayout:
+                orientation: "vertical"
+                size_hint_y: None 
+                height: self.minimum_height
+                padding: 10
+
+                AllWaterTestsWidget:
+                    id: water_tests_widget
+
+<AllWaterTestsWidget>:
+    size_hint_y: None 
+    height: self.minimum_height
+    orientation: "vertical"
+    spacing: 10
+
+    Label:
+        size_hint_y: None
+        text: "sample title text"
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "center"
+        padding: 10
+
+<WaterTestResultItem>:
+    size_hint_y: None
+    height: 400
+
+    canvas.before:
+        Color:
+            rgba: app.colors["gray"]["rgba"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        size_hint: None, None
+        text: "Date: " + root.test_info["date"]
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "left"
+        valign: "top"
+        padding: 10
+        pos_hint: {"center_x": 0.5, "top": 0.95}
+        size: root.width, 75
+
+    Label:
+        size_hint: None, None
+        text: "Score Summary:\n" + str(root.test_info["scores"])
+        color: "#000000"
+        text_size: root.width, None
+        size: self.texture_size
+        halign: "left"
+        valign: "top"
+        padding: 10
+        pos_hint: {"center_x": 0.5, "top": 0.85}
+        size: root.width, 150

@@ -45,6 +45,7 @@ IN_APP_RESOURCES_DATA_FILE = fr"{os.curdir}/resources/InAppResources.xlsx"
 MAP_FILE = fr"{os.curdir}/resources/geographical/map.html"
 MUNICIPALITIES_DATA_FILE = fr"{os.curdir}/resources/geographical/municipalities_data.geojson"
 COUNTIES_DATA_FILE = fr"{os.curdir}/resources/geographical/counties_data.geojson"
+GENERAL_MUNICIPALITIES_DATA_FILE = fr"{os.curdir}/resources/geographical/municipalities_by_county.xlsx"
 
 
 IMAGES = {
