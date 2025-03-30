@@ -193,6 +193,10 @@
                 size_hint: None, None
                 pos_hint: {"center_x": 0.50, "top": 0.35}
                 on_release: 
+                    e = app.root.get_screen("email_screen")
+                    e.recipient = "watersupply@dep.nj.gov"
+                    e.email_subject_text = "Water Quality Complaint -" + app.user_data["water_system"]
+                    e.email_body_text = "(Write your complaint here)"
                     app.root.switch_screens("email_screen", None)
 
             Image:
@@ -368,6 +372,13 @@
     name: "email_screen"
     id: email_screen    # giving an id so we can reference the screen elsewhere in this widget definition
 
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
@@ -384,15 +395,23 @@
             Label:
                 size_hint: (1.00, 0.10)    # these size hints are relative to the above Box Layout
                 text: email_screen.recipient
+                halign: "left"
+                color: "#000000"
 
             TextInput:
-                size_hint: (1.00, 0.75)
+                size_hint: (1.00, 0.10)
+                text: email_screen.email_subject_text
+                on_text: email_screen.email_subject_text = self.text    # updating the subject text as it is entered
+                padding: 12                      
+
+            TextInput:
+                size_hint: (1.00, 0.70)
                 text: email_screen.email_body_text
                 on_text: email_screen.email_body_text = self.text    # updating the body text as it is entered
-                padding: 12               # outer margin separation 
+                padding: 12               
 
             Button:
-                size_hint: (1.00, 0.15)
+                size_hint: (1.00, 0.10)
                 text: "Send"
                 background_normal: ""
                 background_color: app.colors["secondary"]["rgba"]

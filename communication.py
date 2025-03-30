@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty
 
 import webbrowser
+from urllib.parse import quote
 
 
 # This class is the main screen reached when navigating to a "communication" or "feedback"
@@ -23,15 +24,20 @@ class FeedbackMenuItem(Button):
     screen = StringProperty("")  # screen name to navigate to when clicked
     
 class EmailScreen(Screen):
-    recipient = "default recipient (placeholder)"
+    recipient = StringProperty("default recipient (placeholder)")
     email_subject_text = StringProperty("Default email subject (placeholder)")
     email_body_text = StringProperty("Default email body (placeholder)")
     
     def submit_email(self):
-        # not implemented yet
         print(self.recipient)
+        print(self.email_subject_text)
         print(self.email_body_text)
+        
         self.email_body_text = "Submitted" # Visual confirmation
+        
+        mailto_link = f"mailto:{self.recipient}?subject={quote(self.email_subject_text)}&body={quote(self.email_body_text)}"
+        print(mailto_link)
+        webbrowser.open(mailto_link)
         
         
 # These classes represent Screens that are navigated to from the communication
