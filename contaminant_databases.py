@@ -196,6 +196,24 @@ def create_test_municipal_score_geodata(new_file):
     
     municipal_gdf.to_file(new_file)
     
+    
+def share_user_test_results():
+    # Read through all the user's water tests by using pandas
+    # to read each of their water test excel files found in resources/user
+    
+    # Use each dataframe, score it using the function get_weighted_contaminant_scores()
+    
+    # from the scores, you have each of the user's test scores by contaminant class.
+    # add those to the appropriate column and row of the cumulative results file.
+    from user import get_user_data
+    # access the user's town
+    
+    # use the town, + each contaminant class, add the new score to the current value that is there.
+    
+    pass
+
+
+    
 if __name__ == "__main__":
     test_file = "test_data.xlsx"
     create_test_municipal_score_geodata(test_file)
