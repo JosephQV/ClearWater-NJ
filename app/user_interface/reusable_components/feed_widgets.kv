@@ -1,0 +1,86 @@
+<SmallFeedItem>:
+    orientation: 'vertical'
+    size_hint: None, None
+    padding: dp(5)
+    spacing: dp(10)
+    canvas.before:
+        Color:
+            rgba: 0, 1, 0, 0.1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    
+    Button:
+        size_hint: 1, None
+        height: self.width
+        background_normal: root.image
+        background_down: root.image
+        on_release: root.on_image_click(app.root)
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_y: None
+        height: self.minimum_height
+        padding: dp(5)
+        spacing: dp(2)
+
+        Label:
+            text: root.title
+            font_size: '12sp'
+            color: "#000000"
+            bold: True
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            shorten: True
+            shorten_from: "right"
+            max_lines: 1
+
+        Label:
+            text: root.subtitle_1
+            font_size: '10sp'
+            color: "#000000"
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            shorten: True
+            shorten_from: "right"
+            max_lines: 1
+
+        Label:
+            text: root.subtitle_2
+            font_size: '10sp'
+            color: "#000000"
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            shorten: True
+            shorten_from: "right"
+            max_lines: 1
+
+
+<LargeFeedItem>:
+    orientation: 'vertical'
+
+
+<horizontalFeed>:
+    layout: layout
+    bar_width: 6
+    scroll_type: ['bars', 'content']
+    do_scroll_x: True
+    do_scroll_y: False
+    
+    canvas.before:
+        Color:
+            rgba: 0, 0, 1, 0.05
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: layout
+        orientation: "horizontal"
+        size_hint_x: None
+        width: self.minimum_width
+
+

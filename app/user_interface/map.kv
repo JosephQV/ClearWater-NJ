@@ -1,0 +1,57 @@
+<MapScreen>:
+    name: "map_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        UserMenuNavigation:
+
+        InteractiveMap:
+            size_hint: (1.00, 0.78)
+        
+        ScreenNavigationBar:
+            id: nav_bar_id
+
+<InteractiveMap>:
+    size: root.width, root.height
+    padding: 10
+
+    Label:
+        text: app.text["map_screen"]["overview"][app.language()]
+        color: "#000000"
+        text_size: self.width, None
+        size: "300sp", "150sp"
+        size_hint: None, None
+        halign: "center"
+        padding: 10
+        pos_hint: {"center_x": 0.5, "top": 0.95}
+
+    Button:
+        text: app.text["map_screen"]["load_btn"][app.language()]
+        size: "300sp", "60sp"
+        size_hint: None, None
+        pos_hint: {"center_x": 0.5, "top": 0.65}
+        background_normal: ""
+        background_color: app.colors["secondary"]
+        background_down: ""
+        on_press: app.root.get_screen("map_screen").controller.load_map()
+
+    Button:
+        text: app.text["map_screen"]["open_btn"][app.language()]
+        size: "300sp", "75sp"
+        size_hint: None, None
+        pos_hint: {"center_x": 0.5, "top": 0.50}
+        background_normal: ""
+        background_color: app.colors["secondary"]
+        background_down: ""
+        on_press: app.root.get_screen("map_screen").controller.open_map()

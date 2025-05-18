@@ -1,6 +1,8 @@
 *.venv
 *__pycache__
-*test/
+tests
 cache
-resources/copies
-resources/backup
+data/copies
+data/backup
+data/misc
+logs

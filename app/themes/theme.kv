@@ -1,0 +1,40 @@
+#:import rgba kivy.utils.get_color_from_hex
+
+<Widget>:
+    canvas.before:
+        Color:
+            rgba: rgba('#FFFFFF')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<Label>:
+    font_name: 'Roboto'
+    font_size: '12sp'
+    color: 1, 1, 1, 1
+    text_size: self.size
+    halign: 'left'
+    valign: 'middle'
+    shorten: True
+    shorten_from: 'right'
+
+<Button>:
+    font_size: '12sp'
+    background_color: app.colors["secondary"]
+    color: 1, 1, 1, 1
+    background_normal: ''
+    background_down: ''
+    text_size: self.width, None
+    size: 400, 100
+    size_hint: None, None
+    halign: "center"
+    padding: 10
+
+<TextInput>:
+    font_size: '12sp'
+    foreground_color: rgba('#000000')
+    background_color: rgba('#FFFFFF')
+    padding: [10, 10, 10, 10]
+
+<CheckBox>:
+    color: app.colors["secondary"]

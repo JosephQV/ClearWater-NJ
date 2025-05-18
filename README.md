@@ -20,12 +20,12 @@ This will clone the project repository from GitHub to the local directory you ar
 open to in the terminal. From now on, work directly in this cloned folder. The next 
 command will switch to it in the terminal.
 
-**git clone https://github.com/JosephQV/GSSTeam12Project.git**
+**git clone https://github.com/JosephQV/ClearWater-NJ.git**
 
 
 cd is 'change directory'. The subsequent path is the folder where the terminal will be open to.
 
-**cd GSSTeam12Project**
+**cd ClearWater-NJ**
 
 
 This uses the standard Python venv package (virtual environment) to create a virtual environment
@@ -52,16 +52,11 @@ ON MAC:
 
 **source .venv/bin/activate**
 
-This installs the kivy package used for making apps with Python. Ensure you have activated
-your virtual environment (previous command) before running it so that kivy is installed there.
+This installs the needed packages:
 
-**pip install kivy**
+**pip install -r requirements.txt**
 
-For installing other packages:
 
-**pip install pandas**
-
-etc.
 
 
 # git Commands #

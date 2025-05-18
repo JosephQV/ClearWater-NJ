@@ -1,0 +1,236 @@
+<ScreenNavigationBar>:
+    size_hint: (1.00, 0.12)
+    cols: 5
+    mywater_btn: mywater_id
+    map_btn: map_id
+    home_btn: home_id
+    resources_btn: resources_id
+    communication_btn: communication_id
+
+    NavigationButton:
+        id: mywater_id
+        button_text: app.text["navigation_bar"]["mywater_btn"][app.language()]
+        screen: "waterquality_screen"
+        image_source: app.images["mywater"]
+
+    NavigationButton:
+        id: map_id
+        button_text: app.text["navigation_bar"]["map_btn"][app.language()]
+        screen: "map_screen"
+        image_source: app.images["map"]
+
+    NavigationButton:
+        id: home_id
+        button_text: app.text["navigation_bar"]["home_btn"][app.language()]
+        screen: "home_screen"
+        image_source: app.images["home"]
+
+    NavigationButton:
+        id: resources_id
+        button_text: app.text["navigation_bar"]["resources_btn"][app.language()]
+        screen: "resources_screen"
+        image_source: app.images["resources"]
+
+    NavigationButton:
+        id: communication_id
+        button_text: app.text["navigation_bar"]["communication_btn"][app.language()]
+        screen: "communication_screen"
+        image_source: app.images["communication"]
+
+
+<NavigationButton>:
+    id: btn
+    text: root.button_text
+    font_size: "12sp"
+    text_size: self.size
+    valign: "bottom"
+    halign: "center"
+    padding: [6, 6, 6, 12]
+    color: "#000000"
+    background_normal: ""
+    background_color: app.colors["tertiary"]
+    on_release:
+        app.root.switch_screens(root.screen, None)
+
+    Image: 
+        id: img
+        source: root.image_source
+        size: btn.width/2, btn.height/2
+        pos: btn.x + btn.width/4, btn.y + btn.height/3
+
+
+<UserMenuNavigation>:
+    size_hint: 1.00, 0.10
+    padding: 10
+
+    canvas.before:
+        Color:
+            rgba: app.colors["tertiary"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Image:
+        id: app_icon_id
+        source: app.images["app"]
+        size: root.height, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+
+    Label:
+        id: app_title_id
+        size_hint: None, None
+        size: root.height*2, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        text: app.title
+        color: "#000000"
+
+    Widget: # This placeholder fills the rest of the space in the layout
+
+    Button:
+        id: user_btn_id
+        size_hint: None, None
+        size: root.height, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        background_normal: ""
+        background_color: app.colors["tertiary"]
+        background_down: ""
+        on_release:
+            app.root.switch_screens("user_screen", None)
+
+        Image:
+            size_hint: None, None
+            size: 0.65 * root.height, 0.65 * root.height
+            center: user_btn_id.center
+            source: app.images["user"]
+
+    Button:
+        id: settings_btn_id
+        size_hint: None, None
+        size: root.height, root.height
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        background_normal: ""
+        background_color: app.colors["tertiary"]
+        background_down: ""
+        on_release:
+            app.root.switch_screens("settings_screen", None)
+
+        Image:
+            size_hint: None, None
+            size: 0.50 * root.height, 0.50 * root.height
+            center: settings_btn_id.center
+            source: app.images["settings"]
+
+
+<BackMenuBar>:
+    size_hint: 1.00, 0.10
+    orientation: "horizontal"
+
+    canvas.before:
+        Color:
+            rgba: app.colors["tertiary"]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Button:
+        id: back_btn
+        size_hint: None, None
+        size: root.height, root.height
+        background_normal: ""
+        background_down: ""
+        background_color: app.colors["tertiary"]
+        on_release:
+            app.root.switch_screens(root.back_screen, None)
+
+        Image:
+            size_hint: None, None
+            size: 0.50 * root.height, 0.50 * root.height
+            center: back_btn.center
+            source: app.images["back"]
+    
+    Label:
+        text: root.title_text
+        text_size: self.width, None
+        halign: "center"
+        color: "#000000"
+
+
+<TextPreview>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: self.minimum_height
+    padding: dp(10)
+    spacing: dp(8)
+    canvas.before:
+        Color:
+            rgba: 0, 0, 1, 0.1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Label:
+        text: root.title
+        font_size: '18sp'
+        color: 0, 0, 0, 1
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    Label:
+        text: root.body
+        font_size: '14sp'
+        color: 0.2, 0.2, 0.2, 1
+        text_size: self.width, None
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    Button:
+        text: root.button_text
+        size_hint_y: None
+        height: dp(40)
+        on_release: root.navigate(root.screen_manager)
+
+
+<ImagePreview>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: self.minimum_height
+    padding: dp(10)
+    spacing: dp(8)
+    canvas.before:
+        Color:
+            rgba: 0, 0, 1, 0.1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Button:
+        size_hint_y: None
+        height: dp(120)
+        background_normal: root.image_source
+        background_down: root.image_source
+        on_release: root.navigate(root.screen_manager)
+
+    Label:
+        text: root.caption
+        font_size: '14sp'
+        color: 0.1, 0.1, 0.1, 1
+        size_hint_y: None
+        height: self.texture_size[1]
+        halign: 'center'
+        text_size: self.width, None
+
+
+<NavigationHub>:
+    do_scroll_x: False
+    do_scroll_y: True
+    layout: layout
+
+    GridLayout:
+        id: layout
+        cols: 2
+        size_hint_y: None
+        height: self.minimum_height
+        row_default_height: '200dp'
+        row_force_default: False
+        spacing: dp(10)
+        padding: dp(10)

@@ -1,0 +1,304 @@
+<EmailScreen>:
+    name: "email_screen"
+    id: email_screen
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Email Feedback"
+            back_screen: "communication_screen"
+
+        Form:
+            form_items: root.get_email_form_items()
+
+
+<CommunicationScreen>:
+    name: "communication_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        UserMenuNavigation:
+
+        NavigationHub:
+            size_hint: (1.00, 0.78)
+            items: root.get_feedback_navigation_items()
+        
+        ScreenNavigationBar:
+            id: nav_bar_id
+
+
+<TapWaterFeedbackScreen>:
+    name: "tapwaterfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Tap Water Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+            Label:
+                text: "Concerned about the safety of your tap water? Find help below with..."
+                color: "#000000"
+                text_size: self.width, None
+                size: 500, 100
+                size_hint: None, None
+                halign: "center"
+                pos_hint: {"center_x": 0.50, "top": 0.95}
+                color: "#000000"
+
+            Button:
+                text: "Home water testing kits"
+                background_down: ""
+                background_normal: ""
+                background_color: app.colors["secondary"]["rgba"]
+                text_size: self.width, None
+                size: 400, 100
+                size_hint: None, None
+                halign: "center"
+                pos_hint: {"center_x": 0.50, "top": 0.80}
+                padding: 10
+                on_release: root.open_link(root.testkitslink)
+
+            Button:
+                text: "Checking for lead pipes in your residence"
+                background_down: ""
+                background_normal: ""
+                background_color: app.colors["secondary"]["rgba"]
+                text_size: self.width, None
+                size: 400, 100
+                halign: "center"
+                padding: 10
+                size_hint: None, None
+                pos_hint: {"center_x": 0.50, "top": 0.65}
+                on_release: root.open_link(root.checkpipeslink)
+
+            Button:
+                text: "Submit a complaint to your water system or the New Jersey Department of Environmental Protection"
+                background_down: ""
+                background_normal: ""
+                text_size: self.width, None
+                background_color: app.colors["secondary"]["rgba"]
+                size: 400, 100
+                padding: 10
+                halign: "center"
+                size_hint: None, None
+                pos_hint: {"center_x": 0.50, "top": 0.50}
+                on_release: root.open_link(root.njdepcomplaintlink)
+
+            Button:
+                text: "Send a direct email through ClearWater NJ"
+                background_down: ""
+                background_normal: ""
+                text_size: self.width, None
+                background_color: app.colors["secondary"]["rgba"]
+                size: 400, 100
+                padding: 10
+                halign: "center"
+                size_hint: None, None
+                pos_hint: {"center_x": 0.50, "top": 0.35}
+                on_release: 
+                    e = app.root.get_screen("email_screen")
+                    e.recipient = "watersupply@dep.nj.gov"
+                    e.email_subject_text = "Water Quality Complaint -" + app.user_data["water_system"]
+                    e.email_body_text = "(Write your complaint here)"
+                    app.root.switch_screens("email_screen", None)
+
+            Image:
+                source: app.images['njdep']
+                size: 180, 180
+                size_hint: None, None
+                pos_hint: {"center_x": 0.50, "top": 0.25}
+
+
+<WaterBillFeedbackScreen>:
+    name: "waterbillfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Water Bill Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<HomePipesFeedbackScreen>:
+    name: "homepipesfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Home Water Pipes Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<StateInfrastructureFeedbackScreen>:
+    name: "stateinfrastructurefeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Water Infrastructure Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<SurfaceWaterFeedbackScreen>:
+    name: "surfacewaterfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Surface Water Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<PollutionFeedbackScreen>:
+    name: "pollutionfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Water Pollution Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<FloodingFeedbackScreen>:
+    name: "floodingfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Flooding Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00
+
+
+<WatershedFeedbackScreen>:
+    name: "watershedfeedback_screen"
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Regional Watershed Feedback"
+            back_screen: "communication_screen"
+
+        FloatLayout:
+            orientation: "vertical"
+            size_hint: 1.00, 1.00       

@@ -1,0 +1,75 @@
+<HomeScreen>:
+    name: "home_screen"
+    nav_bar_id: nav_bar_id
+    on_enter: self.nav_bar_id.color_buttons(self.name)
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        UserMenuNavigation:
+
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: (1.00, 0.78)
+            size: (root.width, root.height)
+
+            BoxLayout:
+                size_hint_y: None
+                orientation: "vertical"
+                height: self.minimum_height
+                padding: dp(15)
+                spacing: dp(10)
+
+                Label:
+                    size_hint_y: None
+                    text: app.text["home_screen"]["title"][app.language()]
+                    color: "#000000"
+                    text_size: root.width, None
+                    size: self.texture_size
+                    halign: "center"
+                    padding: 10
+
+                Label:
+                    size_hint_y: None
+                    text: app.text["home_screen"]["major_news_feed"][app.language()]
+                    color: "#000000"
+                    text_size: root.width, None
+                    size: self.texture_size
+                    halign: "center"
+                    padding: 10
+
+                HorizontalFeed:
+                    id: tool_resources_list
+                    size_hint_y: None
+                    height: dp(200)
+                    feed_item_size: "small"
+                    feed_items: root.get_general_news_feed_items()
+
+                Label:
+                    size_hint_y: None
+                    text: app.text["home_screen"]["your_system_feed"][app.language()]
+                    color: "#000000"
+                    text_size: root.width, None
+                    size: self.texture_size
+                    halign: "center"
+                    padding: 10
+                
+                HorizontalFeed:
+                    id: tool_resources_list
+                    size_hint_y: None
+                    height: dp(200)
+                    feed_item_size: "small"
+                    feed_items: []
+                
+        
+        ScreenNavigationBar:
+            id: nav_bar_id
