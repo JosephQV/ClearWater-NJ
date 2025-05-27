@@ -36,19 +36,34 @@
                 text_size: self.width, None
                 halign: "center"
                 pos_hint: {"center_x": 0.5, "top": 0.40}
-                text: app.text["waterquality_screen"]["enter_btn"][app.language()]
+                text: "Choose specific contaminants"
                 background_normal: ""
                 background_color: app.colors["secondary"]
                 background_down: ""
                 on_release:
                     app.root.current = "watercontaminantselection_screen"
+            
+            Button:
+                size_hint: None, None 
+                size: "300sp", "60sp"
+                text_size: self.width, None
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "top": 0.30}
+                text: "Choose from common testing kits"
+                background_normal: ""
+                background_color: app.colors["secondary"]
+                background_down: ""
+                on_release:
+                    app.root.current = "testingkitselection_screen"
                     
         ScreenNavigationBar:
             id: nav_bar_id
-            
 
-<WaterTestInputScreen>:
-    name: "watertestinput_screen"
+
+<TestingKitSelectionScreen>:
+    name: "testingkitselection_screen"
+    selection_feed: selection_feed
+    on_enter: self.selection_feed.fill_feed()
 
     canvas.before:
         Color:
@@ -60,13 +75,14 @@
     BoxLayout:
         orientation: "vertical"
         size: root.width, root.height
-
+    
         BackMenuBar:
-            title_text: "Contaminant Input"
-            back_screen: "watercontaminantselection_screen"
-            
-        Form:
-            form_items: root.get_water_test_form_items()
+            title_text: app.text["testingkitselection_screen"]["title"][app.language()]
+            back_screen: "waterquality_screen"
+
+        VerticalFeed:
+            id: selection_feed
+            feed_items: root.get_test_selection_feed_items()
 
 
 <WaterContaminantSelectionScreen>:
@@ -91,4 +107,31 @@
 
         Form:
             id: selection_form
-            form_items: root.get_contaminant_selection_form_items()
+            form_items: root.get_contaminant_selection_form_items()         
+
+
+<WaterTestInputScreen>:
+    name: "watertestinput_screen"
+    input_form: input_form
+    on_enter: self.input_form.fill_form()
+
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+
+        BackMenuBar:
+            title_text: "Contaminant Input"
+            back_screen: "watercontaminantselection_screen"
+            
+        Form:
+            id: input_form
+            form_items: []
+            post_submit_function: root.save_test_to_file
+

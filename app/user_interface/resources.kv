@@ -32,8 +32,8 @@
                 size_hint_y: None 
                 height: self.minimum_height
                 orientation: "vertical"
-                padding: 20
-                spacing: 10
+                padding: dp(20)
+                spacing: dp(10)
 
                 Label:
                     size_hint_y: None
@@ -42,7 +42,7 @@
                     text_size: root.width, None
                     size: self.texture_size
                     halign: "center"
-                    padding: 10
+                    padding: dp(10)
 
                 Label:
                     size_hint_y: None
@@ -51,7 +51,7 @@
                     text_size: root.width, None
                     size: self.texture_size
                     halign: "center"
-                    padding: 10
+                    padding: dp(10)
 
                 HorizontalFeed:
                     id: educational_resources_list
@@ -67,7 +67,7 @@
                     text_size: root.width, None
                     size: self.texture_size
                     halign: "center"
-                    padding: 10
+                    padding: dp(10)
                 
                 HorizontalFeed:
                     id: contaminant_resources_list
@@ -83,7 +83,7 @@
                     text_size: root.width, None
                     size: self.texture_size
                     halign: "center"
-                    padding: 10
+                    padding: dp(10)
 
                 HorizontalFeed:
                     id: tool_resources_list

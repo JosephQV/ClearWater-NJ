@@ -2,12 +2,19 @@ import datetime, time
 import os
 import json
 
-from app.models.drinking_water_contaminant_data import get_water_contaminant_regulatory_data
+from app.models.drinking_water_contaminant_data import get_water_contaminant_regulatory_data, get_home_water_testing_kits
 from data.app_config import USER_DATA_FILE
 
 
 class WaterQualityController:
     pass
+
+
+class TestingKitSelectionController:
+    
+    def get_testing_kits(self):
+        testing_kits = get_home_water_testing_kits()
+        return testing_kits
 
 
 class WaterContaminantSelectionController:
@@ -25,13 +32,13 @@ class WaterContaminantSelectionController:
             "3": "Very Rare"
         }
         for contaminant, row in contaminant_df.iterrows():
-            contaminant_dict[common_level_map[str(int(row["Rarity Level"]))]].append(
+            contaminant_dict[common_level_map[str(int(row["RarityRanking"]))]].append(
                 {
                     "Contaminant": contaminant,
-                    "Contaminant Group": row["Contaminant Group"],
-                "Unit": row["Unit"],
-                    "Health Impacts Text": row["Potential health effects from long-term  exposure above the MCL"],
-                    "Sources Text": row["Common sources of contaminant in drinking water"]
+                    "Contaminant Group": row["ContaminantClass"],
+                    "Unit": row["Unit"],
+                    "Health Impacts Text": row["HealthEffects"],
+                    "Sources Text": row["CommonSources"]
                 }
             )
         return contaminant_dict
@@ -41,6 +48,10 @@ class WaterContaminantSelectionController:
 
 
 class WaterTestInputController:
+    
+    def get_chosen_contaminants(self, contaminant_selection):
+        all_contaminants = get_water_contaminant_regulatory_data()
+        return all_contaminants.loc[contaminant_selection]
     
     def process_water_test(self, water_test_input_data):
         # The saved results dataframe will begin as a copy of the contaminant

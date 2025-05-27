@@ -1,6 +1,8 @@
 import json
 import pathlib
 import logging
+import datetime
+import time
 
 from data.app_config import USER_DATA_FILE
 
@@ -64,4 +66,17 @@ def set_language(language_setting):
     }
     user_data = get_user_data()
     user_data["preferred_language"] = lang_map[language_setting]
+    write_user_data(user_data)
+    
+
+def add_water_test(test_data: dict, test_id: str):
+    test = {
+        "date": str(datetime.date.today()),
+        "time": str(datetime.datetime.now().strftime("%H:%M")),
+        "number_parameters_tested": len(test_data),
+        "test_id": test_id,
+        "test_results": test_data
+    }
+    user_data = get_user_data()
+    user_data["water_tests"].append(test)
     write_user_data(user_data)

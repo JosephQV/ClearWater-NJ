@@ -8,16 +8,19 @@ WINDOW_WIDTH = 350
 WINDOW_HEIGHT = 622
 
 ICON_PATH = fr"{Path(os.curdir).parent}/assets/icons"
-USER_DATA_FILE = fr"{Path(os.curdir).parent}/data/user/user_data.json"
-USER_WATER_TEST_RESULTS_PATH = fr"{Path(os.curdir).parent}/data/user/drinking_water_test_results/"
-CUMULATIVE_RESULTS_FILE = fr"{Path(os.curdir).parent}/data/misc/Cumulative_User_Results.xlsx"
-CONTAMINANT_DATA_FILE = fr"{Path(os.curdir).parent}/data/drinking_water_contaminants/Water_Contaminant_MCLs.xlsx"
-WATER_SYSTEM_DATA_FILE = f"{Path(os.curdir).parent}/data/water_systems/EPA_Water System Summary_20250507.xlsx"
-GEOGRAPHIC_MUNICIPALITIES_DATA_FILE = fr"{Path(os.curdir).parent}/data/geographical/municipal_contaminant_geodata.geojson"
-GENERAL_MUNICIPALITIES_DATA_FILE = fr"{Path(os.curdir).parent}/data/geographical/municipalities_by_county.xlsx"
+DATA_LOCAL_PATH = fr"{Path(os.curdir).parent}/data"
+USER_LOCAL_PATH = fr"{Path(os.curdir).parent}/data/user"
+USER_DATA_FILE = fr"{USER_LOCAL_PATH}/user_data.json"
+USER_WATER_TEST_RESULTS_PATH = fr"{USER_LOCAL_PATH}/drinking_water_test_results/"
+CUMULATIVE_RESULTS_FILE = fr"{DATA_LOCAL_PATH}/misc/Cumulative_User_Results.xlsx"
+CONTAMINANT_DATA_FILE = fr"{DATA_LOCAL_PATH}/drinking_water_contaminants/Water_Contaminant_MCLs.xlsx"
+HOME_WATER_TESTS_DATA_FILE = fr"{DATA_LOCAL_PATH}/drinking_water_contaminants/drinking_water_home_testing_kits.json"
+WATER_SYSTEM_DATA_FILE = f"{DATA_LOCAL_PATH}/water_systems/EPA_Water System Summary_20250507.xlsx"
+GEOGRAPHIC_MUNICIPALITIES_DATA_FILE = fr"{DATA_LOCAL_PATH}/geographical/municipal_contaminant_geodata.geojson"
+GENERAL_MUNICIPALITIES_DATA_FILE = fr"{DATA_LOCAL_PATH}/geographical/municipalities_by_county.xlsx"
 IN_APP_RESOURCES_DATA_FILE = fr"{Path(os.curdir).parent}/assets/InAppResources.xlsx"
-MAP_FILE = fr"{Path(os.curdir).parent}/data/geographical/map.html"
-LOG_FILE = fr"{Path(os.curdir).parent}/data/logs/app.log"
+MAP_FILE = fr"{DATA_LOCAL_PATH}/geographical/map.html"
+LOG_FILE = fr"{DATA_LOCAL_PATH}/logs/app.log"
 
 IMAGES = {
     "app": fr"{ICON_PATH}/app_icon.png",
@@ -36,6 +39,9 @@ IMAGES = {
     "communication_selected": fr"{ICON_PATH}/communication_icon_selected.png",
     "njfuture": fr"{ICON_PATH}/njfuture_icon.png",
     "njdep": fr"{ICON_PATH}/njdep_icon.png",
-    "nj_american_water": fr"{ICON_PATH}/nj_am_water_icon.jpg"
+    "nj_american_water": fr"{ICON_PATH}/nj_am_water_icon.jpg",
+    "SJ_Wave_16in1_Test": fr"{ICON_PATH}/SJ_Wave_16in1_Test.jpg",
+    "Varify_17in1_Test": fr"{ICON_PATH}/Varify_17in1_Test.jpg",
+    "SafeHome_14in1_Test": fr"{ICON_PATH}/SafeHome_14in1_Test.jpg"
 }
 

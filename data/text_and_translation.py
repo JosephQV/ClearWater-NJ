@@ -75,6 +75,12 @@ APP_TEXT = {
         }
     },
     "watertestinput_screen": {},
+    "testingkitselection_screen": {
+        "title": {
+            "en": "Select Your Testing Kit",
+            "es": ""
+        }
+    },
     "results_screen": {
         "title": {
             "en": "My Water Test Results",

@@ -1,0 +1,82 @@
+[
+    {
+        "ID": "B07WNJJVKN",
+        "ID_type": "ASIN",
+        "brand": "SJ Wave",
+        "manufacturer": "SJ Wave",
+        "name": "16 in 1 Drinking Water Test Kit",
+        "test_type": "qualitative",
+        "image_source": "SJ_Wave_16in1_Test.jpg",
+        "contaminants_and_parameters": [
+            "Iron",
+            "Lead",
+            "Nitrate",
+            "Nitrite",
+            "Cyanuric Acid",
+            "Copper",
+            "Fluoride",
+            "Carbonate",
+            "Free Chlorine",
+            "Total Chlorine",
+            "Chlorine Dioxide",
+            "pH",
+            "Microplastics (MPs)",
+            "Alkalinity",
+            "Hardness",
+            "QUAT/QAC"
+        ]
+    },
+    {
+        "ID": "B0837Z5PBJ",
+        "ID_type": "ASIN",
+        "brand": "Varify",
+        "manufacturer": "Varify",
+        "name": "17in1 Complete Drinking Water Test Kit",
+        "test_type": "qualitative",
+        "image_source": "Varify_17in1_Test.jpg",
+        "contaminants_and_parameters": [
+            "Iron",
+            "Lead",
+            "Nitrate",
+            "Nitrite",
+            "Manganese",
+            "Copper",
+            "Fluoride",
+            "Zinc",
+            "Mercury",
+            "Hydrogen",
+            "Total Chlorine",
+            "Sodium Chloride",
+            "Sulfate",
+            "pH",
+            "Bacteria",
+            "Alkalinity",
+            "Hardness"
+        ]
+    },
+    {
+        "ID": "B0CQJJRMTF",
+        "ID_type": "ASIN",
+        "brand": "Safe Home",
+        "manufacturer": "EnviroTestKits",
+        "name": "14-in-1 Drinking Water Test Kit",
+        "test_type": "qualitative",
+        "image_source": "SafeHome_14in1_Test.jpg",
+        "contaminants_and_parameters": [
+            "Iron",
+            "Lead",
+            "Nitrate",
+            "Nitrite",
+            "Calcium",
+            "Copper",
+            "Fluoride",
+            "Carbonate",
+            "Free Chlorine",
+            "Total Chlorine",
+            "pH",
+            "Coliform bacteria",
+            "Alkalinity",
+            "Hardness"
+        ]
+    }
+]

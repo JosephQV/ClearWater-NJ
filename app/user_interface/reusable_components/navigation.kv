@@ -61,7 +61,6 @@
 
 <UserMenuNavigation>:
     size_hint: 1.00, 0.10
-    padding: 10
 
     canvas.before:
         Color:
@@ -73,6 +72,7 @@
     Image:
         id: app_icon_id
         source: app.images["app"]
+        size_hint: None, None
         size: root.height, root.height
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
@@ -140,7 +140,7 @@
         background_down: ""
         background_color: app.colors["tertiary"]
         on_release:
-            app.root.switch_screens(root.back_screen, None)
+            app.root.go_back()
 
         Image:
             size_hint: None, None
@@ -230,7 +230,7 @@
         cols: 2
         size_hint_y: None
         height: self.minimum_height
-        row_default_height: '200dp'
+        row_default_height: dp(200)
         row_force_default: False
         spacing: dp(10)
         padding: dp(10)

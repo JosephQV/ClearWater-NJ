@@ -23,18 +23,18 @@ Builder.load_file(f"{os.path.dirname(os.path.abspath(__file__))}/navigation.kv")
 # Creating a class that sub-classes the kivy ScreenManager class for maintaing behavior
 # between multiple screens.
 class WindowManager(ScreenManager):
-    prev_screen = StringProperty("")
+    prev_screen_hist = ListProperty("")
            
     def __init__(self, **kw):
         super(WindowManager, self).__init__(**kw)
         self.transition = NoTransition()
         
-    def switch_screens(self, next_screen, transition):
+    def switch_screens(self, next_screen, transition=None):
         if next_screen not in self.screen_names:
             logger.error(f"Error switching screens, '{next_screen}' does not exist.")
             return
+        prev_screen = self.current
         try:
-            self.prev_screen = self.current
             if transition == None:
                 self.current = next_screen
             elif transition == "right":
@@ -63,6 +63,15 @@ class WindowManager(ScreenManager):
                 self.transition = NoTransition()
         except Exception as e:
             logger.error(f"Error switching screens: {e}")
+        self.prev_screen_hist.append(prev_screen)
+    
+    def go_back(self):
+        try:
+            prev_screen = self.prev_screen_hist[-1]
+            self.prev_screen_hist = self.prev_screen_hist[:-1]
+            self.current = prev_screen
+        except Exception as e:
+            logger.error(f"Error switching to previous screen: {e}\nScreen history: {self.prev_screen_hist}")
     
 
 # This class represents a navigation bar at the bottom of the screen used to switch between screens.

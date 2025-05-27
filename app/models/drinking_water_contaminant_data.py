@@ -2,9 +2,20 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 import logging
+import json
 
-from data.app_config import CONTAMINANT_DATA_FILE, CUMULATIVE_RESULTS_FILE, GEOGRAPHIC_MUNICIPALITIES_DATA_FILE
+from data.app_config import CONTAMINANT_DATA_FILE, CUMULATIVE_RESULTS_FILE, GEOGRAPHIC_MUNICIPALITIES_DATA_FILE, HOME_WATER_TESTS_DATA_FILE
 from app.models.user_data import get_user_data
+
+
+def get_home_water_testing_kits():
+    try:
+        with open(HOME_WATER_TESTS_DATA_FILE) as f:
+            testkits = json.load(f)
+    except Exception as e:
+        logging.error(f"Failed to read {HOME_WATER_TESTS_DATA_FILE}: {str(e)}")
+        return []
+    return testkits
 
 
 def get_cumulative_user_results():
@@ -34,7 +45,7 @@ def get_municipal_contaminant_geodata():
 
 def get_water_contaminant_regulatory_data():
     try:
-        contaminant_df = pd.read_excel(CONTAMINANT_DATA_FILE, sheet_name="EPA_NPDWR", index_col="Contaminant")
+        contaminant_df = pd.read_excel(CONTAMINANT_DATA_FILE, sheet_name="NJDEP_Primary_w_EPA_Info", index_col="ContaminantName")
     except Exception as e:
         logging.error(f"Failed to read {CONTAMINANT_DATA_FILE}: {str(e)}")
         return None

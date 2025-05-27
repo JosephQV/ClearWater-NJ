@@ -1,5 +1,5 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import StringProperty, ListProperty, ObjectProperty
+from kivy.properties import StringProperty, ListProperty, ObjectProperty, DictProperty
 from kivy.lang import Builder
 from kivy.uix.scrollview import ScrollView
 
@@ -21,12 +21,16 @@ class SmallFeedItem(BoxLayout):
     subtitle_2 = StringProperty("")
     submit_action = StringProperty("")
     link = StringProperty("")
+    action_function = ObjectProperty(None)
+    action_function_kwargs = DictProperty({})
     
     def on_image_click(self, screen_manager):
         if self.submit_action == "open external link":
             webbrowser.open(self.link)
         elif self.submit_action == "open screen":
             pass
+        elif self.submit_action == "custom":
+            self.action_function(**self.action_function_kwargs)
         
     
 class LargeFeedItem(BoxLayout):
@@ -38,6 +42,16 @@ class LargeFeedItem(BoxLayout):
     description = StringProperty("Description")
     submit_action = StringProperty("")
     link = StringProperty("")
+    action_function = ObjectProperty(None)
+    action_function_kwargs = DictProperty({})
+    
+    def on_image_click(self, screen_manager):
+        if self.submit_action == "open external link":
+            webbrowser.open(self.link)
+        elif self.submit_action == "open screen":
+            pass
+        elif self.submit_action == "custom":
+            self.action_function(**self.action_function_kwargs)
 
 
 class HorizontalFeed(ScrollView):
@@ -67,6 +81,8 @@ class HorizontalFeed(ScrollView):
                         subtitle_2=item.get("subtitle_2", ""),
                         submit_action=item.get("submit_action", ""),
                         link=item.get("link", ""),
+                        action_function=item.get("action_function", None),
+                        action_function_kwargs=item.get("action_function_kwargs", {}),
                         height=self.height,
                         width=self.height
                     )
@@ -80,6 +96,8 @@ class HorizontalFeed(ScrollView):
                         description=item.get("description", ""),
                         submit_action=item.get("submit_action", ""),
                         link=item.get("link", ""),
+                        action_function=item.get("action_function", None),
+                        action_function_kwargs=item.get("action_function_kwargs", {}),
                         height=self.height,
                         width=self.height
                     )
@@ -91,3 +109,58 @@ class HorizontalFeed(ScrollView):
     def expand_feed(self):
         pass
         
+        
+class VerticalFeed(ScrollView):
+    feed_items = ListProperty([])
+    feed_item_size = StringProperty("small")  # "small" or "large"
+    layout = ObjectProperty(None)
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.bind(feed_items=self.fill_feed)
+
+    def fill_feed(self, *args):
+        self.layout.clear_widgets()
+        widgets = self.create_feed_widgets(self.feed_items)
+        for widget in widgets:
+            self.layout.add_widget(widget)
+            
+    def create_feed_widgets(self, feed_items):
+        widgets = []
+        for i, item in enumerate(feed_items):
+            try:
+                if self.feed_item_size == "small":
+                    widget = SmallFeedItem(
+                        image=item.get("image", ""),
+                        title=item.get("title", ""),
+                        subtitle_1=item.get("subtitle_1", ""),
+                        subtitle_2=item.get("subtitle_2", ""),
+                        submit_action=item.get("submit_action", ""),
+                        link=item.get("link", ""),
+                        action_function=item.get("action_function", None),
+                        action_function_kwargs=item.get("action_function_kwargs", {}),
+                        height=self.width,
+                        width=self.width
+                    )
+                elif self.feed_item_size == "large":
+                    widget = LargeFeedItem(
+                        image=item.get("image", ""),
+                        title=item.get("title", ""),
+                        subtitle_1=item.get("subtitle_1", ""),
+                        subtitle_2=item.get("subtitle_2", ""),
+                        subtitle_3=item.get("subtitle_3", ""),
+                        description=item.get("description", ""),
+                        submit_action=item.get("submit_action", ""),
+                        link=item.get("link", ""),
+                        action_function=item.get("action_function", None),
+                        action_function_kwargs=item.get("action_function_kwargs", {}),
+                        height=self.width,
+                        width=self.width
+                    )
+                widgets.append(widget)
+            except Exception as e:
+                logger.error(f"Error creating feed item #{i}: {e}")
+        return widgets
+            
+    def expand_feed(self):
+        pass

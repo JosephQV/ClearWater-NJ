@@ -12,7 +12,7 @@ from app.user_interface.resources import ResourcesScreen
 from app.user_interface.settings import SettingsScreen
 from app.user_interface.user import UserScreen, UserDataScreen
 from app.user_interface.communication import CommunicationScreen
-from app.user_interface.water import WaterQualityScreen, WaterContaminantSelectionScreen
+from app.user_interface.water import WaterQualityScreen, WaterContaminantSelectionScreen, TestingKitSelectionScreen, WaterTestInputScreen
 from app.user_interface.map import MapScreen
 
 from data.app_config import APP_TITLE, WINDOW_HEIGHT, WINDOW_WIDTH, IMAGES
@@ -45,7 +45,9 @@ class MainApplication(App):
         self.screen_manager.add_widget(MapScreen())
         self.screen_manager.add_widget(ResourcesScreen())
         self.screen_manager.add_widget(WaterQualityScreen())
+        self.screen_manager.add_widget(TestingKitSelectionScreen())
         self.screen_manager.add_widget(WaterContaminantSelectionScreen())
+        self.screen_manager.add_widget(WaterTestInputScreen())
         self.screen_manager.add_widget(SettingsScreen())
         self.screen_manager.add_widget(UserScreen())
         self.screen_manager.add_widget(UserDataScreen())

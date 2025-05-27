@@ -1,8 +1,8 @@
 <SmallFeedItem>:
     orientation: 'vertical'
     size_hint: None, None
-    padding: dp(5)
-    spacing: dp(10)
+    padding: dp(12)
+    spacing: dp(12)
     canvas.before:
         Color:
             rgba: 0, 1, 0, 0.1
@@ -11,36 +11,36 @@
             size: self.size
     
     Button:
-        size_hint: 1, None
-        height: self.width
+        width: 0.75 * root.width
+        height: 0.75 * root.width
+        size_hint: None, None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         background_normal: root.image
         background_down: root.image
         on_release: root.on_image_click(app.root)
 
     BoxLayout:
         orientation: 'vertical'
-        size_hint_y: None
-        height: self.minimum_height
-        padding: dp(5)
-        spacing: dp(2)
+        padding: dp(6)
+        spacing: dp(6)
 
         Label:
             text: root.title
-            font_size: '12sp'
+            font_size: '14sp'
             color: "#000000"
+            valign: "top"
             bold: True
-            size_hint_y: None
             height: self.texture_size[1]
             text_size: self.width, None
             shorten: True
             shorten_from: "right"
-            max_lines: 1
+            max_lines: 2
 
         Label:
             text: root.subtitle_1
-            font_size: '10sp'
+            font_size: '12sp'
             color: "#000000"
-            size_hint_y: None
+            valign: "top"
             height: self.texture_size[1]
             text_size: self.width, None
             shorten: True
@@ -49,9 +49,9 @@
 
         Label:
             text: root.subtitle_2
-            font_size: '10sp'
+            font_size: '12sp'
             color: "#000000"
-            size_hint_y: None
+            valign: "top"
             height: self.texture_size[1]
             text_size: self.width, None
             shorten: True
@@ -63,12 +63,13 @@
     orientation: 'vertical'
 
 
-<horizontalFeed>:
+<HorizontalFeed>:
     layout: layout
-    bar_width: 6
+    bar_width: dp(6)
     scroll_type: ['bars', 'content']
     do_scroll_x: True
     do_scroll_y: False
+    padding: dp(12)
     
     canvas.before:
         Color:
@@ -82,5 +83,31 @@
         orientation: "horizontal"
         size_hint_x: None
         width: self.minimum_width
+        padding: dp(6)
+        spacing: dp(12)
+
+
+<VerticalFeed>:
+    layout: layout
+    bar_width: dp(6)
+    scroll_type: ['bars', 'content']
+    do_scroll_x: False
+    do_scroll_y: True
+    padding: dp(12)
+    
+    canvas.before:
+        Color:
+            rgba: 0, 0, 1, 0.05
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        id: layout
+        orientation: "vertical"
+        size_hint_y: None
+        height: self.minimum_height
+        padding: dp(6)
+        spacing: dp(12)
 
 
