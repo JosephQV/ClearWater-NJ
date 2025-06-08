@@ -3,10 +3,11 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty, BooleanProperty, DictProperty, ListProperty
 from kivy.lang import Builder
+from kivy.app import App
 
-from data.app_config import ICON_PATH
+from data.app_config import ICON_PATH, IMAGES
+from data.text_and_translation import APP_TEXT
 from app.interface_controllers.water_controller import TestingKitSelectionController, WaterContaminantSelectionController, WaterQualityController, WaterTestInputController
-from app.models.user_data import add_water_test
 
 import os
 
@@ -20,6 +21,18 @@ class WaterQualityScreen(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
         self.controller = WaterQualityController()
+
+    def get_water_navigation_items(self):
+        items = [
+            {
+                "type": "text",
+                "title": "My Water System",
+                "body": "Your water system is a company or municipal utility that sources, purifies, and distributes drinking water to your home.",
+                "button_text": "View My Water System",
+                "target_screen": "tapwaterfeedback_screen"
+            },
+        ]
+        return items
 
 
 class TestingKitSelectionScreen(Screen):
@@ -113,4 +126,8 @@ class WaterTestInputScreen(Screen):
         self.input_form.form_items = form_items
         
     def save_test_to_file(self, form_data):
-        add_water_test(form_data, self.test_id)
+        app = App.get_running_app()
+        if app is not None:
+            test = app.user_controller.prepend_metadata_to_water_test(form_data, self.test_id)
+            app.user_controller.save_water_test_locally(test)
+            app.user_controller.upload_water_test()

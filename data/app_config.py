@@ -9,8 +9,7 @@ WINDOW_HEIGHT = 622
 
 ICON_PATH = fr"{Path(os.curdir).parent}/assets/icons"
 DATA_LOCAL_PATH = fr"{Path(os.curdir).parent}/data"
-USER_LOCAL_PATH = fr"{Path(os.curdir).parent}/data/user"
-USER_DATA_FILE = fr"{USER_LOCAL_PATH}/user_data.json"
+USER_LOCAL_PATH = fr"{DATA_LOCAL_PATH}/user"
 USER_WATER_TEST_RESULTS_PATH = fr"{USER_LOCAL_PATH}/drinking_water_test_results/"
 CUMULATIVE_RESULTS_FILE = fr"{DATA_LOCAL_PATH}/misc/Cumulative_User_Results.xlsx"
 CONTAMINANT_DATA_FILE = fr"{DATA_LOCAL_PATH}/drinking_water_contaminants/Water_Contaminant_MCLs.xlsx"
@@ -21,6 +20,8 @@ GENERAL_MUNICIPALITIES_DATA_FILE = fr"{DATA_LOCAL_PATH}/geographical/municipalit
 IN_APP_RESOURCES_DATA_FILE = fr"{Path(os.curdir).parent}/assets/InAppResources.xlsx"
 MAP_FILE = fr"{DATA_LOCAL_PATH}/geographical/map.html"
 LOG_FILE = fr"{DATA_LOCAL_PATH}/logs/app.log"
+FONT_FILE = fr"{Path(os.curdir).parent}/app/themes/NotoSans-VariableFont_wdth,wght.ttf"
+FONT_ITALIC_FILE = fr"{Path(os.curdir).parent}/app/themes/NotoSans-Italic-VariableFont_wdth,wght.ttf"
 
 IMAGES = {
     "app": fr"{ICON_PATH}/app_icon.png",

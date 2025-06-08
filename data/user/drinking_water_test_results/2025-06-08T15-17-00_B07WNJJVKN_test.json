@@ -1,0 +1,25 @@
+{
+    "date": "2025-06-08",
+    "time": "15:17",
+    "timestamp": "2025-06-08T15-17-00",
+    "number_parameters_tested": 16,
+    "test_id": "B07WNJJVKN",
+    "test_results": {
+        "Iron": "Not detected",
+        "Lead": "Not detected",
+        "Nitrate": "Not detected",
+        "Nitrite": "Detected",
+        "Cyanuric Acid": "Not detected",
+        "Copper": "Not detected",
+        "Fluoride": "Detected",
+        "Carbonate": "Detected",
+        "Free Chlorine": "Not detected",
+        "Total Chlorine": "Not detected",
+        "Chlorine Dioxide": "Not detected",
+        "pH": "Not measured",
+        "Microplastics (MPs)": "Not detected",
+        "Alkalinity": "Not detected",
+        "Hardness": "Not detected",
+        "QUAT/QAC": "Not detected"
+    }
+}

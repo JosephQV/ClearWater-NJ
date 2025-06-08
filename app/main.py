@@ -2,7 +2,7 @@ import logging
 
 from kivy.app import App
 from kivy.core.window import Window
-from kivy.lang import Builder
+from kivy.core.text import LabelBase
 
 from app.user_interface.reusable_components.navigation import WindowManager
 from app.user_interface.reusable_components.feed_widgets import HorizontalFeed, LargeFeedItem, SmallFeedItem
@@ -15,17 +15,18 @@ from app.user_interface.communication import CommunicationScreen
 from app.user_interface.water import WaterQualityScreen, WaterContaminantSelectionScreen, TestingKitSelectionScreen, WaterTestInputScreen
 from app.user_interface.map import MapScreen
 
-from data.app_config import APP_TITLE, WINDOW_HEIGHT, WINDOW_WIDTH, IMAGES
+from data.app_config import APP_TITLE, WINDOW_HEIGHT, WINDOW_WIDTH, IMAGES, FONT_FILE, FONT_ITALIC_FILE
 from data.text_and_translation import APP_TEXT
 from app.themes.colors import COLORS
-from app.models.user_data import get_language, create_user_data_file, get_user_data
+from app.models.user_data import UserController
 from app.models.log_config import setup_logging
+
+
+LabelBase.register(name="NotoSans", fn_regular=FONT_FILE, fn_italic=FONT_ITALIC_FILE)
 
 
 # Starting logging
 setup_logging()
-
-create_user_data_file()
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,7 @@ class MainApplication(App):
     text = APP_TEXT
     colors = COLORS
     images = IMAGES
+    user_controller = UserController()
         
     def build(self):
         self.screen_manager = WindowManager()
@@ -55,7 +57,7 @@ class MainApplication(App):
         return self.screen_manager
     
     def language(self):
-        return get_language()
+        return self.user_controller.get_language()
     
     def user_data(self):
-        return get_user_data()
+        return self.user_controller.user_data

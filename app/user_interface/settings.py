@@ -2,8 +2,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty, StringProperty, ListProperty
 from kivy.lang.builder import Builder
+from kivy.app import App
 
-from app.models.user_data import set_language
 from app.interface_controllers.settings_controller import SettingsController
 
 import os
@@ -28,4 +28,6 @@ class SettingsScreen(Screen):
         return [language_setting]
 
     def update_settings(self, settings):
-        set_language(settings["Language"])
+        app = App.get_running_app()
+        if app is not None:
+            app.user_controller.set_language(settings["Language"])

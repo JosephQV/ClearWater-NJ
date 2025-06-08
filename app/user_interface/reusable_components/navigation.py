@@ -183,5 +183,4 @@ class NavigationHub(ScrollView):
                 )
             else:
                 continue
-            widget.screen_manager = self.screen_manager
             self.layout.add_widget(widget)

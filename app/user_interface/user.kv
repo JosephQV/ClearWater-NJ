@@ -13,14 +13,14 @@
         size: root.width, root.height
 
         BackMenuBar:
-            title_text: app.text["user_screen"]["title"][app.language()]
+            title_text: app.text["user_screen"]["title"][app.user_controller.get_language()]
             back_screen: "home_screen"
 
         FloatLayout:
             size_hint: 1.00, 0.90
 
             Label:
-                text: app.text["user_screen"]["welcome_label"][app.language()] + ", " + app.user_data()["username"]
+                text: app.text["user_screen"]["welcome_label"][app.user_controller.get_language()] + ", " + app.user_controller.user_data["username"]
                 color: "#000000"
                 text_size: root.width, None
                 size: self.texture_size
@@ -30,7 +30,7 @@
                 pos_hint: {"center_x": 0.50, "top": 0.95}
 
             Label:
-                text: app.text["user_screen"]["email_label"][app.language()] + ": " + app.user_data()["email"]
+                text: app.text["user_screen"]["email_label"][app.user_controller.get_language()] + ": " + app.user_controller.user_data["email"]
                 color: "#000000"
                 text_size: root.width, None
                 size: self.texture_size
@@ -40,7 +40,7 @@
                 pos_hint: {"center_x": 0.50, "top": 0.85}
 
             Label:
-                text: app.text["user_screen"]["municipality_label"][app.language()] + ": " + app.user_data()["municipality"] + ", " + app.user_data()["county"] + " " + app.text["user_screen"]["county_label"][app.language()]
+                text: app.text["user_screen"]["municipality_label"][app.user_controller.get_language()] + ": " + app.user_controller.user_data["municipality"] + ", " + app.user_controller.user_data["county"] + " " + app.text["user_screen"]["county_label"][app.user_controller.get_language()]
                 color: "#000000"
                 text_size: root.width, None
                 size: self.texture_size
@@ -50,7 +50,7 @@
                 pos_hint: {"center_x": 0.50, "top": 0.75}
 
             Label:
-                text: app.text["user_screen"]["water_system_label"][app.language()] + ": " + app.user_data()["water_system"]
+                text: app.text["user_screen"]["water_system_label"][app.user_controller.get_language()] + ": " + app.user_controller.user_data["water_system"]
                 color: "#000000"
                 text_size: root.width, None
                 size: self.texture_size
@@ -60,7 +60,7 @@
                 pos_hint: {"center_x": 0.50, "top": 0.65}
 
             Label:
-                text: app.text["user_screen"]["water_tests_label"][app.language()] + " (" + str(len(app.user_data()["water_tests"])) + "):"
+                text: app.text["user_screen"]["water_tests_label"][app.user_controller.get_language()] + " (" + str(app.user_controller.user_data["num_water_tests"]) + "):"
                 color: "#000000"
                 text_size: root.width, None
                 size: self.texture_size
@@ -70,7 +70,7 @@
                 pos_hint: {"center_x": 0.50, "top": 0.55}
 
             Button:
-                text: app.text["user_screen"]["view_water_tests_btn"][app.language()]
+                text: app.text["user_screen"]["view_water_tests_btn"][app.user_controller.get_language()]
                 background_down: ""
                 background_normal: ""
                 text_size: self.width, None
@@ -84,7 +84,7 @@
                     app.root.switch_screens("all_water_tests_screen", None)
 
             Button:
-                text: app.text["user_screen"]["edit_info_btn"][app.language()]
+                text: app.text["user_screen"]["edit_info_btn"][app.user_controller.get_language()]
                 background_down: ""
                 background_normal: ""
                 text_size: self.width, None

@@ -129,3 +129,72 @@ def extract_NJAW_alerts():
     
     return alerts_list
 
+
+def get_DEP_events():
+    url = "https://www.jerseywaterworks.org/_next/data/CZwwpPmcJEgs2dMNxuZIZ/search.json"
+    
+    headers = {'User-Agent': 'Mozilla/5.0'}
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        with open(f"temp.txt", "w+") as f:
+            f.write(str(response.content))
+            string_of_response = str(response.content)
+            # Remove second occurence of the substring <p>
+            # get index of the second occurence of '<p>' in the string_of_response, and return 
+            # string_of_response[0:index]
+            # json.loads(remaining part)
+        
+        with open(f"{DATA_LOCAL_PATH}/water_systems/jerseywaterworks_events.json", "w+") as f:
+            json.dump(remaining_part, f)
+
+    else:
+        print(f'Failed to retrieve alerts from endpoint. Status code: {response.status_code}')
+        return None
+    # return response.json()
+    
+
+def extract_event_information():
+    # Read the JSON file with the content after it was downloaded
+    
+    # You'll have a dictionary variable, look through the keys in it to find
+    # the tree structure of the object.
+    
+    # Extract, for each event, the following info:
+    # title
+    # description
+    # link to the event page
+    # date/time of the event
+    # add these entries of each event to a list, where each item in the list
+    # is a dictionary corresponding to the event, with those properties as key-value pairs
+    
+    event_list = [
+        {
+            "title": "title of the event",
+            "date": "date of event",
+            "time": "",
+            "link": "",
+            "description": "",
+        },
+        {
+            "title": "title of the event",
+            "date": "date of event",
+            "time": "",
+            "link": "",
+            "description": "",
+        },
+        {
+            "title": "title of the event",
+            "date": "date of event",
+            "time": "",
+            "link": "",
+            "description": "",
+        },
+        {
+            "title": "title of the event",
+            "date": "date of event",
+            "time": "",
+            "link": "",
+            "description": "",
+        },
+    ]

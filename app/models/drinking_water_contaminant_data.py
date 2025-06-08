@@ -5,7 +5,6 @@ import logging
 import json
 
 from data.app_config import CONTAMINANT_DATA_FILE, CUMULATIVE_RESULTS_FILE, GEOGRAPHIC_MUNICIPALITIES_DATA_FILE, HOME_WATER_TESTS_DATA_FILE
-from app.models.user_data import get_user_data
 
 
 def get_home_water_testing_kits():
@@ -134,15 +133,6 @@ def score_out_of_100(weighted_avg):
     return 100 - 50 * weighted_avg
 
 
-def share_user_test_results():
-    cumulative_gdf = get_cumulative_user_results()
-    user_municipality = get_user_data()["Municipality"]
-    
-    for contaminant_class, score in user_scores.items():
-        cumulative_gdf.at[user_municipality, f"Total {contaminant_class}"] += score
-        cumulative_gdf.at[user_municipality, "Results Count"] += 1
-
-
 def format_score(score):
     return f"{int(score)}/100"
 
@@ -162,63 +152,70 @@ def format_municipality_scores(municipal_gdf):
 
 def construct_municipal_score_geodata():
     cumulative_gdf = get_cumulative_user_results()
-    print(cumulative_gdf.head())
-    municipal_gdf = get_municipal_contaminant_geodata()
-    print(municipal_gdf.head())
-    print(municipal_gdf.columns)
-    municipal_gdf.set_index("MUN")
-    for index, row in cumulative_gdf.iterrows():
-        print(index, row, "3")
-        municipality = row["MUN"]
-        if row["Results Count"] > 0:
-            print(municipal_gdf.at[municipality, "Overall"])
-            # Computing average scores if there is at least 1 result for the given municipality
-            municipal_gdf.at[municipality, "Inorganic Chemicals"] = row["Total Inorganic Chemicals"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Organic Chemicals"] = row["Total Organic Chemicals"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Microorganisms"] = row["Total Microorganisms"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Disinfection Byproducts"] = row["Total Disinfection Byproducts"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Disinfectants"] = row["Total Disinfectants"] / row["Results Count"]
-            municipal_gdf.at[municipality, "PFAS"] = row["Total PFAS"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Radionuclides"] = row["Total Radionuclides"] / row["Results Count"]
-            municipal_gdf.at[municipality, "Overall"] = row["Total Overall"] / row["Results Count"]
     
-    return municipal_gdf
+    if cumulative_gdf is not None:
+        print(cumulative_gdf.head())
+        municipal_gdf = get_municipal_contaminant_geodata()
+        
+        if municipal_gdf is not None:
+            print(municipal_gdf.head())
+            print(municipal_gdf.columns)
+            municipal_gdf.set_index("MUN")
+            for index, row in cumulative_gdf.iterrows():
+                print(index, row, "3")
+                municipality = row["MUN"]
+                if row["Results Count"] > 0:
+                    print(municipal_gdf.at[municipality, "Overall"])
+                    # Computing average scores if there is at least 1 result for the given municipality
+                    municipal_gdf.at[municipality, "Inorganic Chemicals"] = row["Total Inorganic Chemicals"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Organic Chemicals"] = row["Total Organic Chemicals"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Microorganisms"] = row["Total Microorganisms"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Disinfection Byproducts"] = row["Total Disinfection Byproducts"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Disinfectants"] = row["Total Disinfectants"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "PFAS"] = row["Total PFAS"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Radionuclides"] = row["Total Radionuclides"] / row["Results Count"]
+                    municipal_gdf.at[municipality, "Overall"] = row["Total Overall"] / row["Results Count"]
+            
+            return municipal_gdf
     
 
 def create_empty_municipal_score_geodata(new_file):
-    municipal_gdf, _ = get_municipal_contaminant_geodata()
-    
-    municipal_gdf["Inorganic Chemicals"] = -1
-    municipal_gdf["Organic Chemicals"] = -1
-    municipal_gdf["Microorganisms"] = -1
-    municipal_gdf["Disinfection Byproducts"] = -1
-    municipal_gdf["Disinfectants"] = -1
-    municipal_gdf["PFAS"] = -1
-    municipal_gdf["Radionuclides"] = -1
-    municipal_gdf["Overall"] = -1
-    
-    format_municipality_scores(municipal_gdf)
-    
-    municipal_gdf.to_file(new_file)
+    municipal_gdf = get_municipal_contaminant_geodata()
+
+    if municipal_gdf is not None:
+        municipal_gdf["Inorganic Chemicals"] = -1
+        municipal_gdf["Organic Chemicals"] = -1
+        municipal_gdf["Microorganisms"] = -1
+        municipal_gdf["Disinfection Byproducts"] = -1
+        municipal_gdf["Disinfectants"] = -1
+        municipal_gdf["PFAS"] = -1
+        municipal_gdf["Radionuclides"] = -1
+        municipal_gdf["Overall"] = -1
+        
+        format_municipality_scores(municipal_gdf)
+        
+        municipal_gdf.to_file(new_file)
     
     
 def create_test_municipal_score_geodata(new_file):
-    municipal_gdf, _ = get_municipal_contaminant_geodata()
-    max_pop = np.max(municipal_gdf["POP2020"])
-    min_pop = np.min(municipal_gdf["POP2020"])
-    
-    for index, row in municipal_gdf.iterrows():
-        mean_score = 3/4 * (100 - (row["POP2020"] / max_pop * 100))
+    municipal_gdf = get_municipal_contaminant_geodata()
+
+    if municipal_gdf is not None:
+        max_pop = np.max(municipal_gdf["POP2020"])
+        min_pop = np.min(municipal_gdf["POP2020"])
         
-        row["Inorganic Chemicals"] = float(np.random.normal(mean_score, 5))
-        row["Organic Chemicals"] = float(np.random.normal(mean_score, 5))
-        row["Microorganisms"] = float(np.random.normal(mean_score, 5))
-        row["Disinfection Byproducts"] = float(np.random.normal(mean_score, 5))
-        row["Disinfectants"] = float(np.random.normal(mean_score, 5))
-        row["PFAS"] = float(np.random.normal(mean_score, 5))
-        row["Radionuclides"] = float(np.random.normal(mean_score, 5))
-        row["Overall"] = float(np.random.normal(mean_score, 5))
-    
-    format_municipality_scores(municipal_gdf)
-    
-    municipal_gdf.to_file(new_file)
+        for index, row in municipal_gdf.iterrows():
+            mean_score = 3/4 * (100 - (row["POP2020"] / max_pop * 100))
+            
+            row["Inorganic Chemicals"] = float(np.random.normal(mean_score, 5))
+            row["Organic Chemicals"] = float(np.random.normal(mean_score, 5))
+            row["Microorganisms"] = float(np.random.normal(mean_score, 5))
+            row["Disinfection Byproducts"] = float(np.random.normal(mean_score, 5))
+            row["Disinfectants"] = float(np.random.normal(mean_score, 5))
+            row["PFAS"] = float(np.random.normal(mean_score, 5))
+            row["Radionuclides"] = float(np.random.normal(mean_score, 5))
+            row["Overall"] = float(np.random.normal(mean_score, 5))
+        
+        format_municipality_scores(municipal_gdf)
+        
+        municipal_gdf.to_file(new_file)

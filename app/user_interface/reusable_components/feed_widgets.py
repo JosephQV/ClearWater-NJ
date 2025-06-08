@@ -84,7 +84,7 @@ class HorizontalFeed(ScrollView):
                         action_function=item.get("action_function", None),
                         action_function_kwargs=item.get("action_function_kwargs", {}),
                         height=self.height,
-                        width=self.height
+                        width=0.75*self.height
                     )
                 elif self.feed_item_size == "large":
                     widget = LargeFeedItem(

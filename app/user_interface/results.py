@@ -6,8 +6,6 @@ from kivy.lang import Builder
 
 import os
 
-from models.user_data import get_user_data
-
 
 Builder.load_file(f"{os.path.dirname(os.path.abspath(__file__))}/results.kv")
 

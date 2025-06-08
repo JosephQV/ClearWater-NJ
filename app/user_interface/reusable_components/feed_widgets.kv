@@ -1,8 +1,8 @@
 <SmallFeedItem>:
     orientation: 'vertical'
     size_hint: None, None
-    padding: dp(12)
-    spacing: dp(12)
+    padding: dp(10)
+    spacing: dp(14)
     canvas.before:
         Color:
             rgba: 0, 1, 0, 0.1
@@ -11,52 +11,56 @@
             size: self.size
     
     Button:
-        width: 0.75 * root.width
-        height: 0.75 * root.width
+        width: dp(120)
+        height: dp(120)
         size_hint: None, None
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         background_normal: root.image
         background_down: root.image
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
         on_release: root.on_image_click(app.root)
 
-    BoxLayout:
-        orientation: 'vertical'
-        padding: dp(6)
-        spacing: dp(6)
+    Label:
+        text: root.title
+        font_size: '14sp'
+        font_name: "NotoSans"
+        color: "#000000"
+        valign: "middle"
+        halign: "center"
+        bold: True
+        height: self.texture_size[1]
+        text_size: self.width, None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        shorten: False
+        shorten_from: "right"
+        max_lines: 2
 
-        Label:
-            text: root.title
-            font_size: '14sp'
-            color: "#000000"
-            valign: "top"
-            bold: True
-            height: self.texture_size[1]
-            text_size: self.width, None
-            shorten: True
-            shorten_from: "right"
-            max_lines: 2
+    Label:
+        text: root.subtitle_1
+        font_size: '10sp'
+        color: "#000000"
+        valign: "middle"
+        halign: "center"
+        italic: True
+        height: self.texture_size[1]
+        text_size: self.width, None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        shorten: False
+        shorten_from: "right"
+        max_lines: 1
 
-        Label:
-            text: root.subtitle_1
-            font_size: '12sp'
-            color: "#000000"
-            valign: "top"
-            height: self.texture_size[1]
-            text_size: self.width, None
-            shorten: True
-            shorten_from: "right"
-            max_lines: 1
-
-        Label:
-            text: root.subtitle_2
-            font_size: '12sp'
-            color: "#000000"
-            valign: "top"
-            height: self.texture_size[1]
-            text_size: self.width, None
-            shorten: True
-            shorten_from: "right"
-            max_lines: 1
+    Label:
+        text: root.subtitle_2
+        font_size: '10sp'
+        color: "#000000"
+        valign: "middle"
+        halign: "center"
+        height: self.texture_size[1]
+        text_size: self.width, None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        italic: True
+        shorten: False
+        shorten_from: "right"
+        max_lines: 1
 
 
 <LargeFeedItem>:

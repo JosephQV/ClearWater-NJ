@@ -1,7 +1,7 @@
 [
     {
         "Student_ID":"S1000",
-        "First_Name":"Omar",
+        "First_Name": "Omar",
         "Last_Name":"Williams",
         "Email":"student0@university.com",
         "Gender":"Female",

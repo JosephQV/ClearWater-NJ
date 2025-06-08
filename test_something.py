@@ -1,13 +1,9 @@
-# Testing usage
-from app.models.water_system_data import download_pdf, get_recent_CCR_by_water_system, extract_NJAW_alerts, get_DEP_events
+# A testing file to be used for importing any classes or functions and then calling them
+# within the if-statement below. Run this file independently to test code written here.
+from app.models.user_data import UserController
 
 
 if __name__ == "__main__":
-    pdf_url = "https://www.amwater.com/ccr/littlefalls.pdf"
-    save_as = "downloaded_sample.pdf"
-    download_pdf(pdf_url)
-    
-    get_recent_CCR_by_water_system("NJ AMERICAN WATER - LOGAN")
-    
-    extract_NJAW_alerts()
-    
+    user_cont = UserController()
+
+    print(user_cont.user_data)

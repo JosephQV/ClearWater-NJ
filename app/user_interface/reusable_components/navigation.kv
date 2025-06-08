@@ -41,8 +41,10 @@
 <NavigationButton>:
     id: btn
     text: root.button_text
+    font_name: "NotoSans"
     font_size: "12sp"
     text_size: self.size
+    shorten: True
     valign: "bottom"
     halign: "center"
     padding: [6, 6, 6, 12]
@@ -79,6 +81,8 @@
     Label:
         id: app_title_id
         size_hint: None, None
+        font_name: "NotoSans"
+        bold: True
         size: root.height*2, root.height
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
         text: app.title
@@ -187,7 +191,7 @@
         text: root.button_text
         size_hint_y: None
         height: dp(40)
-        on_release: root.navigate(root.screen_manager)
+        on_release: root.navigate(app.root)
 
 
 <ImagePreview>:
@@ -204,20 +208,26 @@
             size: self.size
 
     Button:
-        size_hint_y: None
+        size_hint: None, None
         height: dp(120)
+        width: dp(120)
         background_normal: root.image_source
         background_down: root.image_source
-        on_release: root.navigate(root.screen_manager)
+        on_release: root.navigate(app.root)
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
     Label:
         text: root.caption
         font_size: '14sp'
+        font_name: "NotoSans"
         color: 0.1, 0.1, 0.1, 1
-        size_hint_y: None
-        height: self.texture_size[1]
+        size_hint: None, None
+        height: dp(20)
+        width: dp(120)
         halign: 'center'
+        valign: "middle"
         text_size: self.width, None
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
 
 
 <NavigationHub>:
@@ -231,6 +241,6 @@
         size_hint_y: None
         height: self.minimum_height
         row_default_height: dp(200)
-        row_force_default: False
-        spacing: dp(10)
+        row_force_default: True
+        spacing: dp(2)
         padding: dp(10)

@@ -3,7 +3,6 @@ import os
 import json
 
 from app.models.drinking_water_contaminant_data import get_water_contaminant_regulatory_data, get_home_water_testing_kits
-from data.app_config import USER_DATA_FILE
 
 
 class WaterQualityController:
@@ -114,12 +113,4 @@ class WaterTestInputController:
         for item in summary_results_list:
             print(item)
 
-        # Saving the entered results to a file
-        user_results_df.to_excel(fr"{os.curdir}/resources/user/test_results_{datetime.date.today()}_{time.time()}.xlsx")
-        user_scores = get_weighted_contaminant_score(user_results_df)
-        
-        user_data = get_user_data()
-        user_data["water_tests"].append({"date": str(datetime.date.today()), "scores": user_scores, "results": summary_results_list})
-
-        with open(USER_DATA_FILE, "w") as file:
-            json.dump(user_data, file)
+        # TODO: Saving the entered results to a file (new format)
